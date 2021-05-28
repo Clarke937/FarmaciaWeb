@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmarciaWeb - @ViewBag.Title</title>
+    @Styles.Render("~/Content/theme.css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav" style="height:100vh">
+            <div class="sidenav shadow-right sidenav-light">
+                <div class="sidenav-menu">
+                    <div class="nav accordion">
+                        <div class="sidenav-menu-heading">Farmacia Web</div>
+                        <a href="@Url.Action("Index","Dashboard")" class="nav-link">
+                            <div class="nav-link-icon"><i class="fas fa-home"></i></div>Inicio
+                        </a>
+                        <div class="sidenav-menu-heading">Catalogos BD</div>
+                        <a href="@Url.Action("TipoMedicamentos","Dashboard")" class="nav-link">
+                            <div class="nav-link-icon"><i class="fa fa-pills"></i></div>Tipos de Medicamentos
+                        </a>
+                        <a href="@Url.Action("Proveedores","Dashboard")" class="nav-link">
+                            <div class="nav-link-icon"><i class="fa fa-shipping-fast"></i></div>Proveedores
+                        </a>
+                        <a href="@Url.Action("Promociones","Dashboard")" class="nav-link">
+                            <div class="nav-link-icon"><i class="fa fa-tags"></i></div>Promociones
+                        </a>
+                        <a href="@Url.Action("Sucursales","Dashboard")" class="nav-link">
+                            <div class="nav-link-icon"><i class="fa fa-clinic-medical"></i></div>Sucursales
+                        </a>
+                        <a href="@Url.Action("TipoVentas","Dashboard")" class="nav-link">
+                            <div class="nav-link-icon"><i class="fa fa-envelope-open-dollar"></i></div>Tipo de ventas
+                        </a>
+                    </div>
+                </div>
+                <div class="sidenav-footer"></div>
+            </div>
+        </div>
+        <div id="layoutSidenav_content">
+            <main class="container mt-5 mb-10">
+                <img src="~/Content/Imgs/logo1.png" alt="Alternate Text" class="img-fluid mb-5" />
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/theme.js")
+    @Scripts.Render("~/Scripts/fontawesome-pro.js")
+    @Scripts.Render("~/Scripts/jquery.validate.js")
+    @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.js")
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

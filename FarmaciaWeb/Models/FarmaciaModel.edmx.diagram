@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="55cb766e59614d0da5f29aabbc3e1814" Name="Diagram1">
+        <EntityTypeShape EntityType="arqfarmaciaModel.cliente" Width="1.5" PointX="7.5" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="arqfarmaciaModel.detalle_factura" Width="1.5" PointX="12.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="arqfarmaciaModel.detalle_pedido" Width="1.5" PointX="10.5" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="arqfarmaciaModel.factura" Width="1.5" PointX="10.5" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="arqfarmaciaModel.forma_pago" Width="1.5" PointX="5.25" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="arqfarmaciaModel.inventario" Width="1.5" PointX="10.5" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="arqfarmaciaModel.login" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="arqfarmaciaModel.medicamento" Width="1.5" PointX="8.25" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="arqfarmaciaModel.nivel_acceso" Width="1.5" PointX="0.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="arqfarmaciaModel.pedido" Width="1.5" PointX="7.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="arqfarmaciaModel.promocion" Width="1.5" PointX="8.25" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="arqfarmaciaModel.proveedor" Width="1.5" PointX="5.25" PointY="21.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="arqfarmaciaModel.registro" Width="1.5" PointX="5.25" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="arqfarmaciaModel.sucursal" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="arqfarmaciaModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="arqfarmaciaModel.tipo_medicamento" Width="1.5" PointX="6" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="arqfarmaciaModel.tipo_venta" Width="1.5" PointX="8.25" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="arqfarmaciaModel.vendedor" Width="1.5" PointX="7.5" PointY="5" IsExpanded="true" />
+        <AssociationConnector Association="arqfarmaciaModel.FK__cliente__fk_regi__76969D2E" ManuallyRouted="false" />
+        <AssociationConnector Association="arqfarmaciaModel.FK__detalle_f__fk_fa__70DDC3D8" ManuallyRouted="false" />
+        <AssociationConnector Association="arqfarmaciaModel.FK__detalle_f__fk_in__6FE99F9F" ManuallyRouted="false" />
+        <AssociationConnector Association="arqfarmaciaModel.FK__detalle_p__fk_me__5DCAEF64" ManuallyRouted="false" />
+        <AssociationConnector Association="arqfarmaciaModel.FK__detalle_p__fk_pe__5EBF139D" ManuallyRouted="false" />
+        <AssociationConnector Association="arqfarmaciaModel.FK__factura__fk_regi__693CA210" ManuallyRouted="false" />
+        <AssociationConnector Association="arqfarmaciaModel.FK__factura__fk_tipo__68487DD7" ManuallyRouted="false" />
+        <AssociationConnector Association="arqfarmaciaModel.fk_promocion" ManuallyRouted="false" />
+        <AssociationConnector Association="arqfarmaciaModel.FK__pedido__fk_forma__59FA5E80" ManuallyRouted="false" />
+        <AssociationConnector Association="arqfarmaciaModel.FK__inventari__fk_me__6477ECF3" ManuallyRouted="false" />
+        <AssociationConnector Association="arqfarmaciaModel.FK__inventari__fk_su__656C112C" ManuallyRouted="false" />
+        <AssociationConnector Association="arqfarmaciaModel.FK__login__fk_nivel__3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="arqfarmaciaModel.FK__registro__fk_log__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="arqfarmaciaModel.FK__medicamen__fk_ti__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="arqfarmaciaModel.FK__pedido__fk_prove__5AEE82B9" ManuallyRouted="false" />
+        <AssociationConnector Association="arqfarmaciaModel.FK__pedido__fk_sucur__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="arqfarmaciaModel.FK__vendedor__fk_reg__412EB0B6" ManuallyRouted="false" />
+        <AssociationConnector Association="arqfarmaciaModel.fk_sucursal" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

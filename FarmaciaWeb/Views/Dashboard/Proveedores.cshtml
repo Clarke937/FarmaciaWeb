@@ -1,0 +1,196 @@
+﻿
+@{
+    ViewBag.Title = "Proveedores";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-4 align-self-center"><h1 class="m-0">Proveedores</h1></div>
+                    <div class="col-4 offset-2">
+                        <div class="input-group input-group-joined input-group-solid">
+                            <input class="form-control pe-0" type="text" placeholder="Buscar..." aria-label="Search">
+                            <span class="input-group-text border-0">
+                                <i class="fal fa-search"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <a href="#" onclick="modalForm()" class="btn btn-success rounded-pill btn-block">Nuevo Proveedor</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombre de proveedor</th>
+                        <th>Dirección</th>
+                        <th>Teléfono</th>
+                        <th>Opciones</th>
+                    </tr>
+                    @foreach (FarmaciaWeb.Models.proveedor pro in ViewBag.Proveedores){
+                        <tr>
+                            <td>@pro.id_proveedor</td>
+                            <td>@pro.nombre_proveedor</td>
+                            <td>@pro.direccion</td>
+                            <td>@pro.telefono</td>
+                            @{
+
+                            }
+                            <td>
+                                <a href="#" onclick="modalEliminar(@pro.id_proveedor)" class="btn btn-icon btn-light btn-sm"><i class="far fa-trash-alt"></i></a>
+                                <a href="#" onclick="modalForm(@pro.id_proveedor,'@pro.nombre_proveedor','@pro.direccion','@pro.telefono')" class="btn btn-icon btn-light btn-sm"><i class="far fa-edit"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    
+    <script>
+
+        
+
+        function modalForm($id, $n, $d, $t) {
+
+            $id = ($id == null) ? "" : $id;
+            $n = ($n == null) ? "" : $n;
+            $d = ($d == null) ? "" : $d;
+            $t = ($t == null) ? "" : $t;
+            $modaltitle = ($id == "") ? "Nuevo Proveedor" : "Modificar Proveedor";
+            $modalbtn = ($id == "") ? "Agregar" : "Modificar";
+
+            $formhtml = "<div class='row py-4'><div class='col-12'>";
+            $formhtml += "<input type='hidden' id='i-proveedor-id' value='" + $id + "' />";
+            $formhtml += "<div class='form-group text-left'><label>Nombre de proveedor:</label><input type='text' id='i-proveedor-nombre' class='form-control' value='" + $n + "' /></div>";
+            $formhtml += "<div class='form-group text-left'><label>Dirección:</label><input type='text' id='i-proveedor-direccion' class='form-control' value='" + $d + "' /></div>";
+            $formhtml += "<div class='form-group text-left'><label>Telefono:</label><input type='text' id='i-proveedor-telefono' class='form-control' value='" + $t + "' /></div>";
+            $formhtml += "</div></div>";
+
+
+            Swal.fire({
+                title: $modaltitle,
+                html: $formhtml,
+                showCancelButton: true,
+                showCloseButton: true,
+                confirmButtonText: $modalbtn,
+                confirmButtonColor: "#00ac69",
+                preConfirm: () => {
+                    $iid = $("#i-proveedor-id").val();
+                    $inombre = $("#i-proveedor-nombre").val();
+                    $idireccion = $("#i-proveedor-direccion").val();
+                    $itelefono = $("#i-proveedor-telefono").val();
+                    if ($n == "") {
+                        agregar($inombre, $idireccion, $itelefono);
+                    } else {
+                        modificar($iid,$inombre,$idireccion,$itelefono);
+                    }
+                }
+            });
+        }
+
+        function agregar($n, $d, $t) {
+            $.ajax({
+                type: 'POST',
+                url: '/Dashboard/InsertarProveedor/',
+                data: { nombre: $n, direccion: $d, telefono: $t},
+                success: function (agregado) {
+                    if (agregado) {
+                        Swal.fire(
+                            'Realizado!',
+                            'Nuevo proveedor agregado',
+                            'success'
+                        ).then(() => {
+                            location.reload();
+                        })
+                    } else {
+                        Swal.fire(
+                            'Error!',
+                            'No se pudo agregar el prooveedor',
+                            'error'
+                        )
+                    }
+                }
+            });
+        }
+
+        function modificar($id, $n, $d, $t) {
+            $.ajax({
+                type: 'POST',
+                url: '/Dashboard/ModificarProveedor/',
+                data: { id: $id, nombre: $n, direccion: $d, telefono: $t },
+                success: function (agregado) {
+                    if (agregado) {
+                        Swal.fire(
+                            'Realizado!',
+                            'Proveedor actualizado',
+                            'success'
+                        ).then(() => {
+                            location.reload();
+                        })
+                    } else {
+                        Swal.fire(
+                            'Error!',
+                            'No se pudo modificar el prooveedor',
+                            'error'
+                        )
+                    }
+                }
+            });
+        }
+
+        function modalEliminar($id) {
+            Swal.fire({
+                icon: "question",
+                title: "Eliminar este proveedor",
+                showCancelButton: true,
+                showCloseButton: true,
+                confirmButtonText: "Confirmar",
+                confirmButtonColor: "#e81500",
+                preConfirm: () => {
+                    eliminar($id);
+                }
+            });
+        }
+
+        function eliminar($id) {
+            $.ajax({
+                type: 'POST',
+                url: '/Dashboard/EliminarProveedor/',
+                data: { id: $id },
+                success: function (agregado) {
+                    if (agregado) {
+                        Swal.fire(
+                            'Realizado!',
+                            'Proveedor eliminado',
+                            'success'
+                        ).then(() => {
+                            location.reload();
+                        })
+                    } else {
+                        Swal.fire(
+                            'Error!',
+                            'No se pudo eliminar el prooveedor',
+                            'error'
+                        )
+                    }
+                }
+            });
+        }
+
+        
+
+
+    </script>
+
+}

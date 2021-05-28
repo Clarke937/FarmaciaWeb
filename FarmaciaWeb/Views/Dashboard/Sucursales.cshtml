@@ -1,0 +1,197 @@
+﻿
+@{
+    ViewBag.Title = "Sucursales";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-4 align-self-center"><h1 class="m-0">Sucursales</h1></div>
+                    <div class="col-4 offset-2">
+                        <div class="input-group input-group-joined input-group-solid">
+                            <input class="form-control pe-0" type="text" placeholder="Buscar..." aria-label="Search">
+                            <span class="input-group-text border-0">
+                                <i class="fal fa-search"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <a href="#" onclick="modalForm()" class="btn btn-success rounded-pill btn-block">Nueva Sucursal</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombre de sucursal</th>
+                        <th>Dirección</th>
+                        <th>Num. Empleados</th>
+                        <th>Opciones</th>
+                    </tr>
+                    @foreach (FarmaciaWeb.Models.sucursal pro in ViewBag.Sucursales)
+                    {
+                        <tr>
+                            <td>@pro.id_sucursal</td>
+                            <td>@pro.nombre_sucursal</td>
+                            <td>@pro.direccion</td>
+                            <td>@pro.num_empleados</td>
+                            @{
+
+                            }
+                            <td>
+                                <a href="#" onclick="modalEliminar(@pro.id_sucursal)" class="btn btn-icon btn-light btn-sm"><i class="far fa-trash-alt"></i></a>
+                                <a href="#" onclick="modalForm(@pro.id_sucursal, '@pro.nombre_sucursal', '@pro.direccion', '@pro.num_empleados')" class="btn btn-icon btn-light btn-sm"><i class="far fa-edit"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script>
+
+
+
+        function modalForm($id, $n, $d, $ne) {
+
+            $id = ($id == null) ? "" : $id;
+            $n = ($n == null) ? "" : $n;
+            $d = ($d == null) ? "" : $d;
+            $ne = ($ne == null) ? "" : $ne;
+            $modaltitle = ($id == "") ? "Nueva Sucursal" : "Modificar Sucursal";
+            $modalbtn = ($id == "") ? "Agregar" : "Modificar";
+
+            $formhtml = "<div class='row py-4'><div class='col-12'>";
+            $formhtml += "<div class='form-group text-left'><label>Nombre de sucursal:</label><input type='text' id='input_1' class='form-control' value='" + $n + "' /></div>";
+            $formhtml += "<div class='form-group text-left'><label>Dirección:</label><input type='text' id='input_2' class='form-control' value='" + $d + "' /></div>";
+            $formhtml += "<div class='form-group text-left'><label>Num. Empleados:</label><input type='text' id='input_3' class='form-control' value='" + $ne + "' /></div>";
+            $formhtml += "</div></div>";
+
+
+            Swal.fire({
+                title: $modaltitle,
+                html: $formhtml,
+                showCancelButton: true,
+                showCloseButton: true,
+                confirmButtonText: $modalbtn,
+                confirmButtonColor: "#00ac69",
+                preConfirm: () => {
+                    $nombre_sucursal = $("#input_1").val();
+                    $direccion = $("#input_2").val();
+                    $nempleados = $("#input_3").val();
+
+                    if ($n == "") {
+                        agregar($nombre_sucursal, $direccion, $nempleados);
+                    } else {
+                        modificar($id, $nombre_sucursal, $direccion, $nempleados);
+                    }
+                }
+            });
+        }
+
+        function agregar($n, $d, $ne) {
+            $.ajax({
+                type: 'POST',
+                url: '/Dashboard/InsertarSucursal/',
+                data: { nombre: $n, direccion: $d, nempleados: $ne},
+                success: function (agregado) {
+                    if (agregado) {
+                        Swal.fire(
+                            'Realizado!',
+                            'Nueva sucursal agregada',
+                            'success'
+                        ).then(() => {
+                            location.reload();
+                        })
+                    } else {
+                        Swal.fire(
+                            'Error!',
+                            'No se pudo agregar la sucursal',
+                            'error'
+                        )
+                    }
+                }
+            });
+        }
+
+        function modificar($id, $n, $d, $ne) {
+            $.ajax({
+                type: 'POST',
+                url: '/Dashboard/ModificarSucursal/',
+                data: { id: $id, nombre: $n, direccion: $d, nempleados: $ne },
+                success: function (agregado) {
+                    if (agregado) {
+                        Swal.fire(
+                            'Realizado!',
+                            'Sucursal actualizada',
+                            'success'
+                        ).then(() => {
+                            location.reload();
+                        })
+                    } else {
+                        Swal.fire(
+                            'Error!',
+                            'No se pudo modificar la sucursal',
+                            'error'
+                        )
+                    }
+                }
+            });
+        }
+
+        function modalEliminar($id) {
+            Swal.fire({
+                icon: "question",
+                title: "Eliminar esta sucursal",
+                showCancelButton: true,
+                showCloseButton: true,
+                confirmButtonText: "Confirmar",
+                confirmButtonColor: "#e81500",
+                preConfirm: () => {
+                    eliminar($id);
+                }
+            });
+        }
+
+        function eliminar($id) {
+            $.ajax({
+                type: 'POST',
+                url: '/Dashboard/EliminarSucursal/',
+                data: { id: $id },
+                success: function (agregado) {
+                    if (agregado) {
+                        Swal.fire(
+                            'Realizado!',
+                            'Sucursal eliminada',
+                            'success'
+                        ).then(() => {
+                            location.reload();
+                        })
+                    } else {
+                        Swal.fire(
+                            'Error!',
+                            'No se pudo eliminar la sucursal',
+                            'error'
+                        )
+                    }
+                }
+            });
+        }
+
+
+
+
+    </script>
+
+}
+

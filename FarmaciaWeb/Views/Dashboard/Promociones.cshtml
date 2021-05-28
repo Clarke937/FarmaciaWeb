@@ -1,0 +1,199 @@
+﻿
+@{
+    ViewBag.Title = "Promociones";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-4 align-self-center"><h1 class="m-0">Promociones</h1></div>
+                    <div class="col-4 offset-2">
+                        <div class="input-group input-group-joined input-group-solid">
+                            <input class="form-control pe-0" type="text" placeholder="Buscar..." aria-label="Search">
+                            <span class="input-group-text border-0">
+                                <i class="fal fa-search"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <a href="#" onclick="modalForm()" class="btn btn-success rounded-pill btn-block">Nueva Promoción</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Id</th>
+                        <th>Titulo</th>
+                        <th>Descripción</th>
+                        <th>Ahorro</th>
+                        <th>Opciones</th>
+                    </tr>
+                    @foreach (FarmaciaWeb.Models.promocion pro in ViewBag.Promociones)
+                    {
+                        <tr>
+                            <td>@pro.id_promocion</td>
+                            <td>@pro.titulo</td>
+                            <td>@pro.descripcion</td>
+                            <td>@pro.ahorro</td>
+                            @{
+
+                            }
+                            <td>
+                                <a href="#" onclick="modalEliminar(@pro.id_promocion)" class="btn btn-icon btn-light btn-sm"><i class="far fa-trash-alt"></i></a>
+                                <a href="#" onclick="modalForm(@pro.id_promocion,'@pro.titulo','@pro.descripcion','@pro.ahorro')" class="btn btn-icon btn-light btn-sm"><i class="far fa-edit"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script>
+
+
+
+        function modalForm($id, $t, $d, $a) {
+
+            $id = ($id == null) ? "" : $id;
+            $t = ($t == null) ? "" : $t;
+            $d = ($d == null) ? "" : $d;
+            $a = ($a == null) ? "" : $a;
+            $modaltitle = ($id == "") ? "Nueva Promoción" : "Modificar Promoción";
+            $modalbtn = ($id == "") ? "Agregar" : "Modificar";
+
+            $formhtml = "<div class='row py-4'><div class='col-12'>";
+            $formhtml += "<input type='hidden' id='i-promo-id' value='" + $id + "' />";
+            $formhtml += "<div class='form-group text-left'><label>Titulo de promoción:</label><input type='text' id='i-promo-titulo' class='form-control' value='" + $t + "' /></div>";
+            $formhtml += "<div class='form-group text-left'><label>Descripción:</label><input type='text' id='i-promo-descripcion' class='form-control' value='" + $d + "' /></div>";
+            $formhtml += "<div class='form-group text-left'><label>Ahorro:</label><input type='text' id='i-promo-ahorro' class='form-control' value='" + $a + "' /></div>";
+            $formhtml += "</div></div>";
+
+            Swal.fire({
+                title: $modaltitle,
+                html: $formhtml,
+                showCancelButton: true,
+                showCloseButton: true,
+                confirmButtonText: $modalbtn,
+                confirmButtonColor: "#00ac69",
+                preConfirm: () => {
+
+                    $rid = $("#i-promo-id").val();
+                    $titulo = $("#i-promo-titulo").val();
+                    $descripcion = $("#i-promo-descripcion").val();
+                    $ahorro = $("#i-promo-ahorro").val();
+
+                    if ($id == "") {
+                        agregar($titulo, $descripcion, $ahorro);
+                    } else {
+                        modificar($rid,$titulo,$descripcion,$ahorro);
+                    }
+                }
+            });
+        }
+
+        function agregar($t, $d, $a) {
+            $.ajax({
+                type: 'POST',
+                url: '/Dashboard/InsertarPromocion/',
+                data: { titulo: $t, descripcion: $d, ahorro: $a},
+                success: function (agregado) {
+                    if (agregado) {
+                        Swal.fire(
+                            'Realizado!',
+                            'Nueva promocion agregado',
+                            'success'
+                        ).then(() => {
+                            location.reload();
+                        })
+                    } else {
+                        Swal.fire(
+                            'Error!',
+                            'No se pudo agregar la promocion',
+                            'error'
+                        )
+                    }
+                }
+            });
+        }
+
+        function modificar($id, $t, $d, $a) {
+            $.ajax({
+                type: 'POST',
+                url: '/Dashboard/ModificarPromocion/',
+                data: { id: $id, titulo: $t, descripcion: $d, ahorro: $a },
+                success: function (agregado) {
+                    if (agregado) {
+                        Swal.fire(
+                            'Realizado!',
+                            'Promoción actualizada',
+                            'success'
+                        ).then(() => {
+                            location.reload();
+                        })
+                    } else {
+                        Swal.fire(
+                            'Error!',
+                            'No se pudo modificar la promoción',
+                            'error'
+                        )
+                    }
+                }
+            });
+        }
+
+        function modalEliminar($id) {
+            Swal.fire({
+                icon: "question",
+                title: "Eliminar esta promoción",
+                showCancelButton: true,
+                showCloseButton: true,
+                confirmButtonText: "Confirmar",
+                confirmButtonColor: "#e81500",
+                preConfirm: () => {
+                    eliminar($id);
+                }
+            });
+        }
+
+        function eliminar($id) {
+            $.ajax({
+                type: 'POST',
+                url: '/Dashboard/EliminarPromocion/',
+                data: { id: $id },
+                success: function (agregado) {
+                    if (agregado) {
+                        Swal.fire(
+                            'Realizado!',
+                            'Proveedor eliminado',
+                            'success'
+                        ).then(() => {
+                            location.reload();
+                        })
+                    } else {
+                        Swal.fire(
+                            'Error!',
+                            'No se pudo eliminar el prooveedor',
+                            'error'
+                        )
+                    }
+                }
+            });
+        }
+
+
+
+
+    </script>
+
+}
+

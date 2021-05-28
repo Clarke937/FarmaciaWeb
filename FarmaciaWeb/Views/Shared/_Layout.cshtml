@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmarciaWeb - @ViewBag.Title</title>
+    @Styles.Render("~/Content/theme.css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+
+    <div class="container mt-5 pb-10">
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/theme.js")
+    @Scripts.Render("~/Scripts/fontawesome-pro.js")
+    @Scripts.Render("~/Scripts/jquery.validate.js")
+    @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.js")
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

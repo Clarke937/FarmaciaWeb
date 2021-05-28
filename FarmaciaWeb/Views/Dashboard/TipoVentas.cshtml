@@ -1,0 +1,181 @@
+﻿
+@{
+    ViewBag.Title = "Tipo de Venta";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-4 align-self-center"><h1 class="m-0">Tipos de ventas</h1></div>
+                    <div class="col-4 offset-2">
+                        <div class="input-group input-group-joined input-group-solid">
+                            <input class="form-control pe-0" type="text" placeholder="Buscar..." aria-label="Search">
+                            <span class="input-group-text border-0">
+                                <i class="fal fa-search"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <a href="#" onclick="modalForm()" class="btn btn-success rounded-pill btn-block">Nuevo Tipo de Venta</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Id</th>
+                        <th>Tipo de venta</th>
+                        <th>Opciones</th>  
+                    </tr>
+                    @foreach (FarmaciaWeb.Models.tipo_venta tv in ViewBag.Ventas)
+                    {
+                        <tr>
+                            <td>@tv.id_tipo_venta</td>
+                            <td>@tv.tipo</td>
+                            <td>
+                                <a href="#" onclick="modalEliminar(@tv.id_tipo_venta)" class="btn btn-icon btn-light btn-sm"><i class="far fa-trash-alt"></i></a>
+                                <a href="#" onclick="modalForm(@tv.id_tipo_venta,'@tv.tipo')" class="btn btn-icon btn-light btn-sm"><i class="far fa-edit"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script>
+
+
+
+        function modalForm($id, $tp) {
+
+            $id = ($id == null) ? "" : $id;
+            $tp = ($tp == null) ? "" : $tp;
+            $modaltitle = ($id == "") ? "Nuevo Tipo de Venta" : "Modificar Tipo";
+            $modalbtn = ($id == "") ? "Agregar" : "Modificar";
+
+            $formhtml = "<div class='row py-4'><div class='col-12'>";
+            $formhtml += "<input type='hidden' id='i-tv-id' value='" + $id + "' />";
+            $formhtml += "<div class='form-group text-left'><label>Tipo de venta:</label><input type='text' id='i-tv-tipo' class='form-control' value='" + $tp + "' /></div>";
+            $formhtml += "</div></div>";
+
+
+            Swal.fire({
+                title: $modaltitle,
+                html: $formhtml,
+                showCancelButton: true,
+                showCloseButton: true,
+                confirmButtonText: $modalbtn,
+                confirmButtonColor: "#00ac69",
+                preConfirm: () => {
+                    $iid = $("#i-tv-id").val();
+                    $inombre = $("#i-tv-tipo").val();
+                    if ($id == "") {
+                        agregar($inombre);
+                    } else {
+                        modificar($iid,$inombre);
+                    }
+                }
+            });
+        }
+
+        function agregar($n) {
+            $.ajax({
+                type: 'POST',
+                url: '/Dashboard/InsertarTipoVenta/',
+                data: { nombre: $n },
+                success: function (agregado) {
+                    if (agregado) {
+                        Swal.fire(
+                            'Realizado!',
+                            'Nuevo proveedor agregado',
+                            'success'
+                        ).then(() => {
+                            location.reload();
+                        })
+                    } else {
+                        Swal.fire(
+                            'Error!',
+                            'No se pudo agregar el prooveedor',
+                            'error'
+                        )
+                    }
+                }
+            });
+        }
+
+        function modificar($id, $n) {
+            $.ajax({
+                type: 'POST',
+                url: '/Dashboard/ModificarTipoVenta/',
+                data: { id: $id, nombre: $n },
+                success: function (agregado) {
+                    if (agregado) {
+                        Swal.fire(
+                            'Realizado!',
+                            'Proveedor actualizado',
+                            'success'
+                        ).then(() => {
+                            location.reload();
+                        })
+                    } else {
+                        Swal.fire(
+                            'Error!',
+                            'No se pudo modificar el prooveedor',
+                            'error'
+                        )
+                    }
+                }
+            });
+        }
+
+        function modalEliminar($id) {
+            Swal.fire({
+                icon: "question",
+                title: "Eliminar este tipo de venta",
+                showCancelButton: true,
+                showCloseButton: true,
+                confirmButtonText: "Confirmar",
+                confirmButtonColor: "#e81500",
+                preConfirm: () => {
+                    eliminar($id);
+                }
+            });
+        }
+
+        function eliminar($id) {
+            $.ajax({
+                type: 'POST',
+                url: '/Dashboard/EliminarTipoVenta/',
+                data: { id: $id },
+                success: function (agregado) {
+                    if (agregado) {
+                        Swal.fire(
+                            'Realizado!',
+                            'Proveedor eliminado',
+                            'success'
+                        ).then(() => {
+                            location.reload();
+                        })
+                    } else {
+                        Swal.fire(
+                            'Error!',
+                            'No se pudo eliminar el prooveedor',
+                            'error'
+                        )
+                    }
+                }
+            });
+        }
+
+    </script>
+
+}
