@@ -22,18 +22,35 @@ namespace FarmaciaWeb.Controllers
         {
 
             login usuario = dbc.login.Where(x => x.usuario.ToLower().Equals(login.usuario.ToLower())).FirstOrDefault();
-            
-            if(usuario != null)
+            registro registro = dbc.registro.Where(x => x.fk_login.Equals(usuario.id_login)).FirstOrDefault();
+            if (usuario != null)
             {
                 if (Crypter.CheckPassword(login.contrasenia, usuario.contrasenia))
                 {
-                    this.Session["currentUser"] = usuario;
-                    return RedirectToAction("Index","Login");
+                    if (usuario.fk_nivel.Equals(3))
+                    {
+                        this.Session["currentUser"] = usuario;
+                        this.Session["id_user"] = registro.id_registro;
+                        this.Session["user"] = usuario.usuario;
+                        this.Session["name"] = registro.nombres.ToUpper();
+                        this.Session["ape"] = registro.apellidos.ToUpper();
+                        return RedirectToAction("Index", "Home");
+                    } 
+                    else
+                    {
+                        this.Session["currentUser"] = usuario;
+                        return RedirectToAction("Index", "Dashboard");
+                    }
+                    
                 }
             }
-
             return RedirectToAction("Index","Registro");
         }
 
+        public ActionResult CerrarSesion()
+        {
+            this.Session["currentUser"] = null;
+            return RedirectToAction("Index");
+        }
     }
 }

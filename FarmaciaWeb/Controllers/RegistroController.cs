@@ -34,6 +34,7 @@ namespace FarmaciaWeb.Controllers
             registro.nombres = lr.nombres;
             registro.apellidos = lr.apellidos;
             registro.dui = lr.dui;
+            registro.estado_notificaciones = true;
             registro.nit = lr.nit;
             registro.direccion = lr.direccion;
             registro.genero = getGeneros()[lr.genero].Value;

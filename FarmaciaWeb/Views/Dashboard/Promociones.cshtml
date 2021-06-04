@@ -104,7 +104,7 @@
         function agregar($t, $d, $a) {
             $.ajax({
                 type: 'POST',
-                url: '/Dashboard/InsertarPromocion/',
+                url: '/Promociones/InsertarPromocion/',
                 data: { titulo: $t, descripcion: $d, ahorro: $a},
                 success: function (agregado) {
                     if (agregado) {
@@ -129,7 +129,7 @@
         function modificar($id, $t, $d, $a) {
             $.ajax({
                 type: 'POST',
-                url: '/Dashboard/ModificarPromocion/',
+                url: '/Promociones/ModificarPromocion/',
                 data: { id: $id, titulo: $t, descripcion: $d, ahorro: $a },
                 success: function (agregado) {
                     if (agregado) {
@@ -168,7 +168,7 @@
         function eliminar($id) {
             $.ajax({
                 type: 'POST',
-                url: '/Dashboard/EliminarPromocion/',
+                url: '/Promociones/EliminarPromocion/',
                 data: { id: $id },
                 success: function (agregado) {
                     if (agregado) {

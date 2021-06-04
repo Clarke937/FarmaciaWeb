@@ -90,7 +90,7 @@
         function agregar($n) {
             $.ajax({
                 type: 'POST',
-                url: '/Dashboard/InsertarTipoVenta/',
+                url: '/TipoVentas/InsertarTipoVenta/',
                 data: { nombre: $n },
                 success: function (agregado) {
                     if (agregado) {
@@ -115,7 +115,7 @@
         function modificar($id, $n) {
             $.ajax({
                 type: 'POST',
-                url: '/Dashboard/ModificarTipoVenta/',
+                url: '/TipoVentas/ModificarTipoVenta/',
                 data: { id: $id, nombre: $n },
                 success: function (agregado) {
                     if (agregado) {
@@ -154,7 +154,7 @@
         function eliminar($id) {
             $.ajax({
                 type: 'POST',
-                url: '/Dashboard/EliminarTipoVenta/',
+                url: '/TipoVentas/EliminarTipoVenta/',
                 data: { id: $id },
                 success: function (agregado) {
                     if (agregado) {

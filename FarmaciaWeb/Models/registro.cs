@@ -20,6 +20,7 @@ namespace FarmaciaWeb.Models
             this.cliente = new HashSet<cliente>();
             this.factura = new HashSet<factura>();
             this.vendedor = new HashSet<vendedor>();
+            this.detalles_notificaciones = new HashSet<detalles_notificaciones>();
         }
     
         public int id_registro { get; set; }
@@ -32,6 +33,7 @@ namespace FarmaciaWeb.Models
         public Nullable<int> edad { get; set; }
         public string fecha_registro { get; set; }
         public int fk_login { get; set; }
+        public Nullable<bool> estado_notificaciones { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cliente> cliente { get; set; }
@@ -40,5 +42,7 @@ namespace FarmaciaWeb.Models
         public virtual login login { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<vendedor> vendedor { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<detalles_notificaciones> detalles_notificaciones { get; set; }
     }
 }

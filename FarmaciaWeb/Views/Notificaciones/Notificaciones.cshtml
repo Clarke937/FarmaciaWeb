@@ -1,0 +1,121 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+
+@if (Session["currentUser"] != null)
+{
+    List<FarmaciaWeb.Models.detalles_notificaciones> det_not = (List<FarmaciaWeb.Models.detalles_notificaciones>)this.Session["notificaciones"];
+    <div class="row offset-2">
+        <div class="col-10">
+            <div class="card">
+                <div class="card-header border-bottom-0 d-flex justify-content-between">
+                    <div class="align-self-center"><i class="far fa-sticky-note mr-2"></i>Notificaciones</div>
+                    <div class="d-inline-flex">
+                        <button data-bs-toggle="tooltip" data-bs-placement="bottom" title="Marcar todas como leídas" class="btn btn-sm btn-icon btn-primary ml-3" id="btnSeen">
+                            <i class="fa fa-check"></i>
+                        </button>
+                        @if (ViewBag.registro.estado_notificaciones)
+                        {
+                            <button data-bs-toggle="tooltip" data-bs-placement="to" title="Desactivar notificaciones" class="btn btn-sm btn-icon btn-primary ml-3" id="btnNot" value="activo">
+                                <i class="far fa-bell"></i>
+                            </button>
+                        }
+                        else
+                        {
+                            <button data-bs-toggle="tooltip" data-bs-placement="top" title="Activar notificaciones" class="btn btn-sm btn-icon btn-primary ml-3" id="btnNot" value="desactivo">
+                                <i class="fas fa-bell-slash"></i>
+                            </button>
+                        }
+                        <button data-bs-toggle="tooltip" data-bs-placement="bottom" title="Eliminar historial de notificaciones" class="btn btn-sm btn-icon btn-primary ml-3" id="btnClear">
+                            <i class="far fa-trash-alt"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="list-group list-group-flush" id="ordenes-slider" style="overflow-x:hidden; overflow-y:scroll; height: 400px">
+                    @if (det_not.Count > 0)
+                    {
+
+                        foreach (FarmaciaWeb.Models.detalles_notificaciones det in det_not)
+                        {
+                            string theme = "";
+                            if (det.estado)
+                            {
+                                theme = "bg-light";
+                            }
+                            else { theme = ""; }
+                            <a href='#' class='list-group-item list-group-item-action @theme' id="">
+                                <div class="d-flex justify-content-between">
+                                    <span><b style="font-size:1.5em;">@det.notificaciones.titulo</b></span>
+                                </div>
+                                <p class="text-black-75 font-weight-600">@det.notificaciones.descripcion</p>
+                                <p class="text-sm text-muted">Hora de Ingreso: 15/MAY/2021 - 04:42 pm</p>
+                                <div class="d-flex mt-3">
+                                    <span class="badge badge-primary-soft text-primary badge-pill mr-2"><i class="fas fa-piggy-bank mr-2"></i>@String.Format("${0:0.00}", det.notificaciones.extras)</span>
+                                    @foreach (FarmaciaWeb.Models.sucursal s in ViewBag.sucursales)
+                                    {
+                                        <span class="badge badge-green-soft text-success badge-pill mr-1"><i class="fa fa-location-arrow mr-2"></i> @s.nombre_sucursal</span>
+                                    }
+                                </div>
+                            </a>
+                        }
+                    }
+                    else
+                    {
+                        <h2 class="text-center">No hay notificaciones nuevas</h2>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        $("#btnNot").click(function () {
+            $state = $(this).val();
+            $itag = $("#btnNot i");
+            if ($state == "activo") {
+                $itag.removeClass("far");
+                $itag.removeClass("fa-bell");
+                $itag.addClass("fas");
+                $itag.addClass("fa-bell-slash");
+                $(this).val("desactivo");
+                $(this).attr("title", "Activar notificaciones")
+                Activar("Desactivar");
+            } else {
+                $itag.removeClass("fas");
+                $itag.removeClass("fa-bell-slash");
+                $itag.addClass("far");
+                $itag.addClass("fa-bell");
+                $(this).val("activo");
+                $(this).attr("title", "Desactivar notificaciones")
+                Activar("Activar");
+            }
+        })
+
+        function Activar(opcion) {
+            $.ajax({
+                type: 'POST',
+                url: '/Notificaciones/' + opcion + '/',
+            });
+        }
+
+        $("#btnSeen").click(function () {
+            $.ajax({
+                type: 'POST',
+                url: '/Notificaciones/Vista',
+                data: { idP: 0, idR: 0 },
+                success: () => location.reload()
+            });
+        })
+
+        $("#btnClear").click(function () {
+            $.ajax({
+                type: 'POST',
+                url: '/Notificaciones/Vista',
+                data: { idP: -1, idR: -1 },
+                success: () => location.reload()
+            });
+        })
+    </script>
+} 

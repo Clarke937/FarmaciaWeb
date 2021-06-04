@@ -23,10 +23,12 @@
                             <div class="form-group">
                                 <label>Nombre de usuario:</label>
                                 @Html.TextBoxFor(x => x.usuario, htmlAttributes: new { @class = "form-control form-control-solid" })
+                                @Html.ValidationMessageFor(x => x.usuario, "", htmlAttributes: new { @class = "text-danger" })
                             </div>
                             <div class="form-group">
                                 <label>Contraseña:</label>
                                 @Html.PasswordFor(x => x.contrasenia, htmlAttributes: new { @class = "form-control form-control-solid" })
+                                @Html.ValidationMessageFor(x => x.contrasenia, "", htmlAttributes: new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="col-4 offset-1">

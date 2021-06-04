@@ -41,6 +41,10 @@
         <AssociationConnector Association="arqfarmaciaModel.FK__pedido__fk_sucur__59063A47" ManuallyRouted="false" />
         <AssociationConnector Association="arqfarmaciaModel.FK__vendedor__fk_reg__412EB0B6" ManuallyRouted="false" />
         <AssociationConnector Association="arqfarmaciaModel.fk_sucursal" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="arqfarmaciaModel.detalles_notificaciones" Width="1.5" PointX="15.625" PointY="10.625" />
+        <AssociationConnector Association="arqfarmaciaModel.FK__detalles___fk_re__787EE5A0" />
+        <EntityTypeShape EntityType="arqfarmaciaModel.notificaciones" Width="1.5" PointX="10.375" PointY="0.875" />
+        <AssociationConnector Association="arqfarmaciaModel.FK__detalles___fk_no__05D8E0BE" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

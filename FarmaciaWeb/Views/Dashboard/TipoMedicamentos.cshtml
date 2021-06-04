@@ -101,7 +101,7 @@
         function agregar($a, $b, $c, $d) {
             $.ajax({
                 type: 'POST',
-                url: '/Dashboard/InsertarTipoMedicamento/',
+                url: '/TipoMedicamento/InsertarTipoMedicamento/',
                 data: { tipo: $a, descripcion: $b, expedicion: $c, expiracion: $d },
                 success: function (agregado) {
                     if (agregado) {
@@ -126,7 +126,7 @@
         function modificar($id, $a, $b, $c, $d) {
             $.ajax({
                 type: 'POST',
-                url: '/Dashboard/ModificarTipoMedicamento/',
+                url: '/TipoMedicamento/ModificarTipoMedicamento/',
                 data: { id: $id, tipo: $a, descripcion: $b, expedicion: $c, expiracion: $d },
                 success: function (agregado) {
                     if (agregado) {
@@ -166,7 +166,7 @@
         function eliminar($id) {
             $.ajax({
                 type: 'POST',
-                url: '/Dashboard/EliminarTipoMedicamento/',
+                url: '/TipoMedicamento/EliminarTipoMedicamento/',
                 data: { id: $id },
                 success: function (agregado) {
                     if (agregado) {

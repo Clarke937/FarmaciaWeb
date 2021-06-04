@@ -102,7 +102,7 @@
         function agregar($n, $d, $t) {
             $.ajax({
                 type: 'POST',
-                url: '/Dashboard/InsertarProveedor/',
+                url: '/Proveedores/InsertarProveedor/',
                 data: { nombre: $n, direccion: $d, telefono: $t},
                 success: function (agregado) {
                     if (agregado) {
@@ -127,7 +127,7 @@
         function modificar($id, $n, $d, $t) {
             $.ajax({
                 type: 'POST',
-                url: '/Dashboard/ModificarProveedor/',
+                url: '/Proveedores/ModificarProveedor/',
                 data: { id: $id, nombre: $n, direccion: $d, telefono: $t },
                 success: function (agregado) {
                     if (agregado) {
@@ -166,7 +166,7 @@
         function eliminar($id) {
             $.ajax({
                 type: 'POST',
-                url: '/Dashboard/EliminarProveedor/',
+                url: '/Proveedores/EliminarProveedor/',
                 data: { id: $id },
                 success: function (agregado) {
                     if (agregado) {
@@ -187,10 +187,5 @@
                 }
             });
         }
-
-        
-
-
     </script>
-
 }

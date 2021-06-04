@@ -102,7 +102,7 @@
         function agregar($n, $d, $ne) {
             $.ajax({
                 type: 'POST',
-                url: '/Dashboard/InsertarSucursal/',
+                url: '/Sucursales/InsertarSucursal/',
                 data: { nombre: $n, direccion: $d, nempleados: $ne},
                 success: function (agregado) {
                     if (agregado) {
@@ -127,7 +127,7 @@
         function modificar($id, $n, $d, $ne) {
             $.ajax({
                 type: 'POST',
-                url: '/Dashboard/ModificarSucursal/',
+                url: '/Sucursales/ModificarSucursal/',
                 data: { id: $id, nombre: $n, direccion: $d, nempleados: $ne },
                 success: function (agregado) {
                     if (agregado) {
@@ -166,7 +166,7 @@
         function eliminar($id) {
             $.ajax({
                 type: 'POST',
-                url: '/Dashboard/EliminarSucursal/',
+                url: '/Sucursales/EliminarSucursal/',
                 data: { id: $id },
                 success: function (agregado) {
                     if (agregado) {

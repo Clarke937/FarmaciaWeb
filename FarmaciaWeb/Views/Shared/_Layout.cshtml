@@ -10,8 +10,97 @@
 
 </head>
 <body>
+    @if (Session["currentUser"] != null)
+    {
+        int promItems = 0;
+        List<FarmaciaWeb.Models.detalles_notificaciones> det_not = (List<FarmaciaWeb.Models.detalles_notificaciones>)this.Session["notificaciones"];
+        promItems = det_not.Where(x => x.estado.Equals(true)).Count();
 
-    <div class="container mt-5 pb-10">
+        <nav class="topnav navbar navbar-expand navbar-light bg-white fixed-top">
+            <div class="container justify-content-between ">
+                <a href="@Url.Action("Index","Home")" class="navbar-brand active">
+                    <img src="~/Content/Imgs/logo1.png" class="img-fluid w-100 h-100" />
+                </a>
+                <ul class="navbar-nav align-items-center ml-auto">
+                    <li class="nav-item dropdown no-caret ml-2 mr-lg-0 dropdown-user">
+                        <a data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top" class="btn btn-icon btn-light btn-sm dropdown-toggle" id="navbarDropdownNot" href="javascript:void(0);" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <i class="far fa-bell"></i>
+                            @if (promItems > 0)
+                            {
+                                <span class="badge badge-teal badge-pill font-weight-bold" style="position:absolute;right:0px;top:-8px;">@promItems</span>
+                            }
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right border-0 shadow animated--fade-in-up" aria-labelledby="navbarDropdownNot" id="actionbar_modal_not" style="overflow-x:hidden; overflow-y:scroll; height: 200px">
+                            <div class="dropdown-header d-flex">
+                                <div class="dropdown-user-details d-inline-flex">
+                                    <div class="dropdown-user-details-name text-danger mr-10"> Notificaciones</div>
+                                    <a href="@Url.Action("Notificaciones","Notificaciones")" class="text-danger"><i class="fal fa-cog mr-2"></i></a>
+                                </div>
+                            </div>
+                            @if (det_not.Count > 0)
+                            {
+                                foreach (FarmaciaWeb.Models.detalles_notificaciones det in det_not)
+                                {
+                                    string theme = "";
+                                    if (det.estado)
+                                    {
+                                        theme = "bg-light";
+                                    }
+                                    else { theme = ""; }
+                                    <a href="~/Notificaciones/Notificaciones/" onclick="javascript:visto('@det.fk_registro','@det.fk_notificacion')" class="list-group-item list-group-item-action p-0 @theme" id="card-order-1">
+                                        <div class=" justify-content-between">
+                                            <span> <i class="fal fa-lightbulb-exclamation mx-2"></i><b>@det.notificaciones.titulo</b> </span>
+                                        </div>
+                                        <p class="text-sm text-muted ml-4">Hora de Ingreso: 29/5/2021 14:05:30</p>
+                                    </a>
+                                }
+                            }
+                            else
+                            {
+                                <p class="text-center">No hay notificaciones nuevas</p>
+                            }
+                        </div>
+                    </li>
+
+                    <li class="font-weight-800 mr-1 ml-4">@Session["name"] @Session["ape"]</li>
+                    <li class="nav-item dropdown no-caret ml-2 mr-lg-0 dropdown-user">
+                        <a class="btn btn-icon btn-light btn-sm dropdown-toggle" id="navbarDropdownUserImage" href="javascript:void(0);" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fa fa-user"></i></a>
+                        <div class="dropdown-menu dropdown-menu-right border-0 shadow animated--fade-in-up" aria-labelledby="navbarDropdownUserImage" id="actionbar_modal">
+                            <div class="dropdown-header d-flex align-items-center">
+                                <div class="dropdown-user-details">
+                                    <div class="dropdown-user-details-name text-primary">@Session["name"] @Session["ape"]</div>
+                                    <div class="dropdown-user-details-email">@@ @Session["user"]</div>
+                                </div>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="@Url.Action("Index","Home")">
+                                <i class="fal fa-cog mr-2"></i> Mi Cuenta
+                            </a>
+                            <a class="dropdown-item" href="@Url.Action("CerrarSesion","Login")">
+                                <i class="fal fa-sign-out mr-2"></i> Cerrar Sesión
+                            </a>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+    }
+    else
+    {
+        <nav class="topnav navbar navbar-expand navbar-light bg-white fixed-top">
+            <div class="container justify-content-between ">
+                <a href="@Url.Action("Index","Home")" class="navbar-brand active">
+                    <img src="~/Content/Imgs/logo1.png" class="img-fluid w-100 h-100" />
+                </a>
+                <ul class="navbar-nav align-items-center ml-auto">
+                    <li class="nav-item"><a href="@Url.Action("Index","Login")" class="nav-link font-weight-600">Iniciar Sesion</a></li>
+                </ul>
+            </div>
+        </nav>
+    }
+
+    <div class="container mt-10 pb-10">
         @RenderBody()
     </div>
 
@@ -25,5 +114,21 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @RenderSection("scripts", required: false)
+
+    <script>
+        $("#navbarDropdownUserImage").on("click", function () {
+            $("#actionbar_modal").toggleClass("show");
+        });
+        $("#navbarDropdownNot").on("click", function () {
+            $("#actionbar_modal_not").toggleClass("show");
+        });
+        function visto($idR, $idP) {
+            $.ajax({
+                type: 'POST',
+                url: '/Notificaciones/Vista',
+                data: { idP: $idP, idR: $idR }
+            });
+        }
+    </script>
 </body>
 </html>

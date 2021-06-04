@@ -11,26 +11,22 @@ namespace FarmaciaWeb.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-    public partial class login
+    
+    public partial class notificaciones
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public login()
+        public notificaciones()
         {
-            this.registro = new HashSet<registro>();
+            this.detalles_notificaciones = new HashSet<detalles_notificaciones>();
         }
     
-        public int id_login { get; set; }
-
-        [Required(ErrorMessage = "Debe ingresar un nombre de usuario")]
-        public string usuario { get; set; }
-        [Required(ErrorMessage = "Debe ingresar una contraseña")]
-        public string contrasenia { get; set; }
-        public int fk_nivel { get; set; }
+        public int id_notificacion { get; set; }
+        public string titulo { get; set; }
+        public string descripcion { get; set; }
+        public Nullable<decimal> extras { get; set; }
+        public Nullable<bool> estado { get; set; }
     
-        public virtual nivel_acceso nivel_acceso { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<registro> registro { get; set; }
+        public virtual ICollection<detalles_notificaciones> detalles_notificaciones { get; set; }
     }
 }

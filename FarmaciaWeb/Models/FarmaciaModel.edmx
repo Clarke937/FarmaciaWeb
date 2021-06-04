@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="arqfarmaciaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="arqfarmaciaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="cliente">
           <Key>
             <PropertyRef Name="id_cliente" />
@@ -29,6 +29,15 @@
           <Property Name="id_detalle_pedido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="fk_medicamento" Type="int" Nullable="false" />
           <Property Name="fk_pedido" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="detalles_notificaciones">
+          <Key>
+            <PropertyRef Name="fk_registro" />
+            <PropertyRef Name="fk_notificacion" />
+          </Key>
+          <Property Name="estado" Type="bit" Nullable="false" />
+          <Property Name="fk_registro" Type="int" Nullable="false" />
+          <Property Name="fk_notificacion" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="factura">
           <Key>
@@ -85,6 +94,16 @@
           <Property Name="id_nivel" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nivel" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="notificaciones">
+          <Key>
+            <PropertyRef Name="id_notificacion" />
+          </Key>
+          <Property Name="id_notificacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="titulo" Type="varchar" MaxLength="100" />
+          <Property Name="descripcion" Type="varchar" MaxLength="100" />
+          <Property Name="extras" Type="money" />
+          <Property Name="estado" Type="bit" />
+        </EntityType>
         <EntityType Name="pedido">
           <Key>
             <PropertyRef Name="id_pedido" />
@@ -127,6 +146,7 @@
           <Property Name="edad" Type="int" />
           <Property Name="fecha_registro" Type="varchar" MaxLength="50" />
           <Property Name="fk_login" Type="int" Nullable="false" />
+          <Property Name="estado_notificaciones" Type="bit" />
         </EntityType>
         <EntityType Name="sucursal">
           <Key>
@@ -174,7 +194,7 @@
           <Property Name="fk_registro" Type="int" Nullable="false" />
           <Property Name="fk_sucursal" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK__cliente__fk_regi__76969D2E">
+        <Association Name="FK__cliente__fk_regi__4316F928">
           <End Role="registro" Type="Self.registro" Multiplicity="1" />
           <End Role="cliente" Type="Self.cliente" Multiplicity="*" />
           <ReferentialConstraint>
@@ -186,7 +206,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__detalle_f__fk_fa__70DDC3D8">
+        <Association Name="FK__detalle_f__fk_fa__440B1D61">
           <End Role="factura" Type="Self.factura" Multiplicity="0..1" />
           <End Role="detalle_factura" Type="Self.detalle_factura" Multiplicity="*" />
           <ReferentialConstraint>
@@ -198,7 +218,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__detalle_f__fk_in__6FE99F9F">
+        <Association Name="FK__detalle_f__fk_in__44FF419A">
           <End Role="inventario" Type="Self.inventario" Multiplicity="0..1" />
           <End Role="detalle_factura" Type="Self.detalle_factura" Multiplicity="*" />
           <ReferentialConstraint>
@@ -210,7 +230,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__detalle_p__fk_me__5DCAEF64">
+        <Association Name="FK__detalle_p__fk_me__45F365D3">
           <End Role="medicamento" Type="Self.medicamento" Multiplicity="1" />
           <End Role="detalle_pedido" Type="Self.detalle_pedido" Multiplicity="*" />
           <ReferentialConstraint>
@@ -222,7 +242,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__detalle_p__fk_pe__5EBF139D">
+        <Association Name="FK__detalle_p__fk_pe__46E78A0C">
           <End Role="pedido" Type="Self.pedido" Multiplicity="1" />
           <End Role="detalle_pedido" Type="Self.detalle_pedido" Multiplicity="*" />
           <ReferentialConstraint>
@@ -234,7 +254,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__factura__fk_regi__693CA210">
+        <Association Name="FK__detalles___fk_no__0B91BA14">
+          <End Role="notificaciones" Type="Self.notificaciones" Multiplicity="1" />
+          <End Role="detalles_notificaciones" Type="Self.detalles_notificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="notificaciones">
+              <PropertyRef Name="id_notificacion" />
+            </Principal>
+            <Dependent Role="detalles_notificaciones">
+              <PropertyRef Name="fk_notificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__detalles___fk_re__0A9D95DB">
+          <End Role="registro" Type="Self.registro" Multiplicity="1" />
+          <End Role="detalles_notificaciones" Type="Self.detalles_notificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="registro">
+              <PropertyRef Name="id_registro" />
+            </Principal>
+            <Dependent Role="detalles_notificaciones">
+              <PropertyRef Name="fk_registro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__factura__fk_regi__47DBAE45">
           <End Role="registro" Type="Self.registro" Multiplicity="0..1" />
           <End Role="factura" Type="Self.factura" Multiplicity="*" />
           <ReferentialConstraint>
@@ -246,7 +290,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__factura__fk_tipo__68487DD7">
+        <Association Name="FK__factura__fk_tipo__48CFD27E">
           <End Role="tipo_venta" Type="Self.tipo_venta" Multiplicity="0..1" />
           <End Role="factura" Type="Self.factura" Multiplicity="*" />
           <ReferentialConstraint>
@@ -258,7 +302,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__inventari__fk_me__6477ECF3">
+        <Association Name="FK__inventari__fk_me__4AB81AF0">
           <End Role="medicamento" Type="Self.medicamento" Multiplicity="0..1" />
           <End Role="inventario" Type="Self.inventario" Multiplicity="*" />
           <ReferentialConstraint>
@@ -270,7 +314,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__inventari__fk_su__656C112C">
+        <Association Name="FK__inventari__fk_su__4BAC3F29">
           <End Role="sucursal" Type="Self.sucursal" Multiplicity="0..1" />
           <End Role="inventario" Type="Self.inventario" Multiplicity="*" />
           <ReferentialConstraint>
@@ -282,7 +326,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__login__fk_nivel__3B75D760">
+        <Association Name="FK__login__fk_nivel__4CA06362">
           <End Role="nivel_acceso" Type="Self.nivel_acceso" Multiplicity="1" />
           <End Role="login" Type="Self.login" Multiplicity="*" />
           <ReferentialConstraint>
@@ -294,7 +338,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__medicamen__fk_ti__5441852A">
+        <Association Name="FK__medicamen__fk_ti__4D94879B">
           <End Role="tipo_medicamento" Type="Self.tipo_medicamento" Multiplicity="1" />
           <End Role="medicamento" Type="Self.medicamento" Multiplicity="*" />
           <ReferentialConstraint>
@@ -306,7 +350,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__pedido__fk_forma__59FA5E80">
+        <Association Name="FK__pedido__fk_forma__4E88ABD4">
           <End Role="forma_pago" Type="Self.forma_pago" Multiplicity="1" />
           <End Role="pedido" Type="Self.pedido" Multiplicity="*" />
           <ReferentialConstraint>
@@ -318,7 +362,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__pedido__fk_prove__5AEE82B9">
+        <Association Name="FK__pedido__fk_prove__4F7CD00D">
           <End Role="proveedor" Type="Self.proveedor" Multiplicity="1" />
           <End Role="pedido" Type="Self.pedido" Multiplicity="*" />
           <ReferentialConstraint>
@@ -330,7 +374,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__pedido__fk_sucur__59063A47">
+        <Association Name="FK__pedido__fk_sucur__5070F446">
           <End Role="sucursal" Type="Self.sucursal" Multiplicity="1" />
           <End Role="pedido" Type="Self.pedido" Multiplicity="*" />
           <ReferentialConstraint>
@@ -342,7 +386,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__registro__fk_log__3E52440B">
+        <Association Name="FK__registro__fk_log__5165187F">
           <End Role="login" Type="Self.login" Multiplicity="1" />
           <End Role="registro" Type="Self.registro" Multiplicity="*" />
           <ReferentialConstraint>
@@ -354,7 +398,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__vendedor__fk_reg__412EB0B6">
+        <Association Name="FK__vendedor__fk_reg__52593CB8">
           <End Role="registro" Type="Self.registro" Multiplicity="1" />
           <End Role="vendedor" Type="Self.vendedor" Multiplicity="*" />
           <ReferentialConstraint>
@@ -394,12 +438,14 @@
           <EntitySet Name="cliente" EntityType="Self.cliente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="detalle_factura" EntityType="Self.detalle_factura" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="detalle_pedido" EntityType="Self.detalle_pedido" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="detalles_notificaciones" EntityType="Self.detalles_notificaciones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="factura" EntityType="Self.factura" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="forma_pago" EntityType="Self.forma_pago" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="inventario" EntityType="Self.inventario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="login" EntityType="Self.login" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="medicamento" EntityType="Self.medicamento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="nivel_acceso" EntityType="Self.nivel_acceso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="notificaciones" EntityType="Self.notificaciones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="pedido" EntityType="Self.pedido" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="promocion" EntityType="Self.promocion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="proveedor" EntityType="Self.proveedor" Schema="dbo" store:Type="Tables" />
@@ -409,67 +455,75 @@
           <EntitySet Name="tipo_medicamento" EntityType="Self.tipo_medicamento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tipo_venta" EntityType="Self.tipo_venta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="vendedor" EntityType="Self.vendedor" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__cliente__fk_regi__76969D2E" Association="Self.FK__cliente__fk_regi__76969D2E">
+          <AssociationSet Name="FK__cliente__fk_regi__4316F928" Association="Self.FK__cliente__fk_regi__4316F928">
             <End Role="registro" EntitySet="registro" />
             <End Role="cliente" EntitySet="cliente" />
           </AssociationSet>
-          <AssociationSet Name="FK__detalle_f__fk_fa__70DDC3D8" Association="Self.FK__detalle_f__fk_fa__70DDC3D8">
+          <AssociationSet Name="FK__detalle_f__fk_fa__440B1D61" Association="Self.FK__detalle_f__fk_fa__440B1D61">
             <End Role="factura" EntitySet="factura" />
             <End Role="detalle_factura" EntitySet="detalle_factura" />
           </AssociationSet>
-          <AssociationSet Name="FK__detalle_f__fk_in__6FE99F9F" Association="Self.FK__detalle_f__fk_in__6FE99F9F">
+          <AssociationSet Name="FK__detalle_f__fk_in__44FF419A" Association="Self.FK__detalle_f__fk_in__44FF419A">
             <End Role="inventario" EntitySet="inventario" />
             <End Role="detalle_factura" EntitySet="detalle_factura" />
           </AssociationSet>
-          <AssociationSet Name="FK__detalle_p__fk_me__5DCAEF64" Association="Self.FK__detalle_p__fk_me__5DCAEF64">
+          <AssociationSet Name="FK__detalle_p__fk_me__45F365D3" Association="Self.FK__detalle_p__fk_me__45F365D3">
             <End Role="medicamento" EntitySet="medicamento" />
             <End Role="detalle_pedido" EntitySet="detalle_pedido" />
           </AssociationSet>
-          <AssociationSet Name="FK__detalle_p__fk_pe__5EBF139D" Association="Self.FK__detalle_p__fk_pe__5EBF139D">
+          <AssociationSet Name="FK__detalle_p__fk_pe__46E78A0C" Association="Self.FK__detalle_p__fk_pe__46E78A0C">
             <End Role="pedido" EntitySet="pedido" />
             <End Role="detalle_pedido" EntitySet="detalle_pedido" />
           </AssociationSet>
-          <AssociationSet Name="FK__factura__fk_regi__693CA210" Association="Self.FK__factura__fk_regi__693CA210">
+          <AssociationSet Name="FK__detalles___fk_no__0B91BA14" Association="Self.FK__detalles___fk_no__0B91BA14">
+            <End Role="notificaciones" EntitySet="notificaciones" />
+            <End Role="detalles_notificaciones" EntitySet="detalles_notificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK__detalles___fk_re__0A9D95DB" Association="Self.FK__detalles___fk_re__0A9D95DB">
+            <End Role="registro" EntitySet="registro" />
+            <End Role="detalles_notificaciones" EntitySet="detalles_notificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK__factura__fk_regi__47DBAE45" Association="Self.FK__factura__fk_regi__47DBAE45">
             <End Role="registro" EntitySet="registro" />
             <End Role="factura" EntitySet="factura" />
           </AssociationSet>
-          <AssociationSet Name="FK__factura__fk_tipo__68487DD7" Association="Self.FK__factura__fk_tipo__68487DD7">
+          <AssociationSet Name="FK__factura__fk_tipo__48CFD27E" Association="Self.FK__factura__fk_tipo__48CFD27E">
             <End Role="tipo_venta" EntitySet="tipo_venta" />
             <End Role="factura" EntitySet="factura" />
           </AssociationSet>
-          <AssociationSet Name="FK__inventari__fk_me__6477ECF3" Association="Self.FK__inventari__fk_me__6477ECF3">
+          <AssociationSet Name="FK__inventari__fk_me__4AB81AF0" Association="Self.FK__inventari__fk_me__4AB81AF0">
             <End Role="medicamento" EntitySet="medicamento" />
             <End Role="inventario" EntitySet="inventario" />
           </AssociationSet>
-          <AssociationSet Name="FK__inventari__fk_su__656C112C" Association="Self.FK__inventari__fk_su__656C112C">
+          <AssociationSet Name="FK__inventari__fk_su__4BAC3F29" Association="Self.FK__inventari__fk_su__4BAC3F29">
             <End Role="sucursal" EntitySet="sucursal" />
             <End Role="inventario" EntitySet="inventario" />
           </AssociationSet>
-          <AssociationSet Name="FK__login__fk_nivel__3B75D760" Association="Self.FK__login__fk_nivel__3B75D760">
+          <AssociationSet Name="FK__login__fk_nivel__4CA06362" Association="Self.FK__login__fk_nivel__4CA06362">
             <End Role="nivel_acceso" EntitySet="nivel_acceso" />
             <End Role="login" EntitySet="login" />
           </AssociationSet>
-          <AssociationSet Name="FK__medicamen__fk_ti__5441852A" Association="Self.FK__medicamen__fk_ti__5441852A">
+          <AssociationSet Name="FK__medicamen__fk_ti__4D94879B" Association="Self.FK__medicamen__fk_ti__4D94879B">
             <End Role="tipo_medicamento" EntitySet="tipo_medicamento" />
             <End Role="medicamento" EntitySet="medicamento" />
           </AssociationSet>
-          <AssociationSet Name="FK__pedido__fk_forma__59FA5E80" Association="Self.FK__pedido__fk_forma__59FA5E80">
+          <AssociationSet Name="FK__pedido__fk_forma__4E88ABD4" Association="Self.FK__pedido__fk_forma__4E88ABD4">
             <End Role="forma_pago" EntitySet="forma_pago" />
             <End Role="pedido" EntitySet="pedido" />
           </AssociationSet>
-          <AssociationSet Name="FK__pedido__fk_prove__5AEE82B9" Association="Self.FK__pedido__fk_prove__5AEE82B9">
+          <AssociationSet Name="FK__pedido__fk_prove__4F7CD00D" Association="Self.FK__pedido__fk_prove__4F7CD00D">
             <End Role="proveedor" EntitySet="proveedor" />
             <End Role="pedido" EntitySet="pedido" />
           </AssociationSet>
-          <AssociationSet Name="FK__pedido__fk_sucur__59063A47" Association="Self.FK__pedido__fk_sucur__59063A47">
+          <AssociationSet Name="FK__pedido__fk_sucur__5070F446" Association="Self.FK__pedido__fk_sucur__5070F446">
             <End Role="sucursal" EntitySet="sucursal" />
             <End Role="pedido" EntitySet="pedido" />
           </AssociationSet>
-          <AssociationSet Name="FK__registro__fk_log__3E52440B" Association="Self.FK__registro__fk_log__3E52440B">
+          <AssociationSet Name="FK__registro__fk_log__5165187F" Association="Self.FK__registro__fk_log__5165187F">
             <End Role="login" EntitySet="login" />
             <End Role="registro" EntitySet="registro" />
           </AssociationSet>
-          <AssociationSet Name="FK__vendedor__fk_reg__412EB0B6" Association="Self.FK__vendedor__fk_reg__412EB0B6">
+          <AssociationSet Name="FK__vendedor__fk_reg__52593CB8" Association="Self.FK__vendedor__fk_reg__52593CB8">
             <End Role="registro" EntitySet="registro" />
             <End Role="vendedor" EntitySet="vendedor" />
           </AssociationSet>
@@ -482,8 +536,7 @@
             <End Role="vendedor" EntitySet="vendedor" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="arqfarmaciaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -638,6 +691,8 @@
           <NavigationProperty Name="factura" Relationship="Self.FK__factura__fk_regi__693CA210" FromRole="registro" ToRole="factura" />
           <NavigationProperty Name="login" Relationship="Self.FK__registro__fk_log__3E52440B" FromRole="registro" ToRole="login" />
           <NavigationProperty Name="vendedor" Relationship="Self.FK__vendedor__fk_reg__412EB0B6" FromRole="registro" ToRole="vendedor" />
+          <Property Name="estado_notificaciones" Type="Boolean" />
+          <NavigationProperty Name="detalles_notificaciones" Relationship="arqfarmaciaModel.FK__detalles___fk_re__787EE5A0" FromRole="registro" ToRole="detalles_notificaciones" />
         </EntityType>
         <EntityType Name="sucursal">
           <Key>
@@ -999,7 +1054,63 @@
             <End Role="sucursal" EntitySet="sucursal" />
             <End Role="vendedor" EntitySet="vendedor" />
           </AssociationSet>
+          <EntitySet Name="detalles_notificaciones" EntityType="arqfarmaciaModel.detalles_notificaciones" />
+          <AssociationSet Name="FK__detalles___fk_re__787EE5A0" Association="arqfarmaciaModel.FK__detalles___fk_re__787EE5A0">
+            <End Role="registro" EntitySet="registro" />
+            <End Role="detalles_notificaciones" EntitySet="detalles_notificaciones" />
+          </AssociationSet>
+          <EntitySet Name="notificaciones" EntityType="arqfarmaciaModel.notificaciones" />
+          <AssociationSet Name="FK__detalles___fk_no__05D8E0BE" Association="arqfarmaciaModel.FK__detalles___fk_no__05D8E0BE">
+            <End Role="notificaciones" EntitySet="notificaciones" />
+            <End Role="detalles_notificaciones" EntitySet="detalles_notificaciones" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="detalles_notificaciones">
+          <Key>
+            <PropertyRef Name="fk_registro" />
+            <PropertyRef Name="fk_notificacion" />
+          </Key>
+          <Property Name="estado" Type="Boolean" Nullable="false" />
+          <Property Name="fk_registro" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="registro" Relationship="arqfarmaciaModel.FK__detalles___fk_re__787EE5A0" FromRole="detalles_notificaciones" ToRole="registro" />
+          <Property Name="fk_notificacion" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="notificaciones" Relationship="arqfarmaciaModel.FK__detalles___fk_no__05D8E0BE" FromRole="detalles_notificaciones" ToRole="notificaciones" />
+        </EntityType>
+        <Association Name="FK__detalles___fk_re__787EE5A0">
+          <End Type="arqfarmaciaModel.registro" Role="registro" Multiplicity="1" />
+          <End Type="arqfarmaciaModel.detalles_notificaciones" Role="detalles_notificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="registro">
+              <PropertyRef Name="id_registro" />
+            </Principal>
+            <Dependent Role="detalles_notificaciones">
+              <PropertyRef Name="fk_registro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="notificaciones">
+          <Key>
+            <PropertyRef Name="id_notificacion" />
+          </Key>
+          <Property Name="id_notificacion" Type="Int32" Nullable="false" />
+          <Property Name="titulo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="extras" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="estado" Type="Boolean" />
+          <NavigationProperty Name="detalles_notificaciones" Relationship="arqfarmaciaModel.FK__detalles___fk_no__05D8E0BE" FromRole="notificaciones" ToRole="detalles_notificaciones" />
+        </EntityType>
+        <Association Name="FK__detalles___fk_no__05D8E0BE">
+          <End Type="arqfarmaciaModel.notificaciones" Role="notificaciones" Multiplicity="1" />
+          <End Type="arqfarmaciaModel.detalles_notificaciones" Role="detalles_notificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="notificaciones">
+              <PropertyRef Name="id_notificacion" />
+            </Principal>
+            <Dependent Role="detalles_notificaciones">
+              <PropertyRef Name="fk_notificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1129,6 +1240,7 @@
           <EntitySetMapping Name="registro">
             <EntityTypeMapping TypeName="arqfarmaciaModel.registro">
               <MappingFragment StoreEntitySet="registro">
+                <ScalarProperty Name="estado_notificaciones" ColumnName="estado_notificaciones" />
                 <ScalarProperty Name="id_registro" ColumnName="id_registro" />
                 <ScalarProperty Name="nombres" ColumnName="nombres" />
                 <ScalarProperty Name="apellidos" ColumnName="apellidos" />
@@ -1190,6 +1302,26 @@
                 <ScalarProperty Name="salario" ColumnName="salario" />
                 <ScalarProperty Name="fk_registro" ColumnName="fk_registro" />
                 <ScalarProperty Name="fk_sucursal" ColumnName="fk_sucursal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="detalles_notificaciones">
+            <EntityTypeMapping TypeName="arqfarmaciaModel.detalles_notificaciones">
+              <MappingFragment StoreEntitySet="detalles_notificaciones">
+                <ScalarProperty Name="fk_notificacion" ColumnName="fk_notificacion" />
+                <ScalarProperty Name="fk_registro" ColumnName="fk_registro" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="notificaciones">
+            <EntityTypeMapping TypeName="arqfarmaciaModel.notificaciones">
+              <MappingFragment StoreEntitySet="notificaciones">
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="extras" ColumnName="extras" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="titulo" ColumnName="titulo" />
+                <ScalarProperty Name="id_notificacion" ColumnName="id_notificacion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
