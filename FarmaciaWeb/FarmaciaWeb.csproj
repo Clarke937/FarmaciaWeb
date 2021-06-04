@@ -162,11 +162,20 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\NotificacionesController.cs" />
+    <Compile Include="Controllers\PromocionesController.cs" />
+    <Compile Include="Controllers\ProveedoresController.cs" />
     <Compile Include="Controllers\RegistroController.cs" />
+    <Compile Include="Controllers\SucursalesController.cs" />
+    <Compile Include="Controllers\TipoMedicamentoController.cs" />
+    <Compile Include="Controllers\TipoVentasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\cliente.cs">
+      <DependentUpon>FarmaciaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\detalles_notificaciones.cs">
       <DependentUpon>FarmaciaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\detalle_factura.cs">
@@ -209,6 +218,9 @@
     <Compile Include="Models\nivel_acceso.cs">
       <DependentUpon>FarmaciaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\notificaciones.cs">
+      <DependentUpon>FarmaciaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\pedido.cs">
       <DependentUpon>FarmaciaModel.tt</DependentUpon>
     </Compile>
@@ -236,7 +248,12 @@
     <Compile Include="Models\vendedor.cs">
       <DependentUpon>FarmaciaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Observer\IRegistros.cs" />
+    <Compile Include="Observer\Observador.cs" />
+    <Compile Include="Observer\Sujeto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Strategy\ObtenerDatos.cs" />
+    <Compile Include="Strategy\ObtenerDatosCtx.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -295,8 +312,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Registro\Index.cshtml" />
@@ -307,6 +322,7 @@
     <Content Include="Views\Dashboard\TipoVentas.cshtml" />
     <Content Include="Views\Dashboard\Promociones.cshtml" />
     <Content Include="Views\Shared\_Dashboard.cshtml" />
+    <Content Include="Views\Notificaciones\Notificaciones.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
