@@ -1,0 +1,206 @@
+﻿@model FarmaciaWeb.Models.medicamento
+@{
+    ViewBag.Title = "Medicamentos";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-3 align-self-center"><h1 class="m-0">Promociones</h1></div>
+                    <div class="col-4 offset-2">
+                        <div class="input-group input-group-joined input-group-solid">
+                            <input class="form-control pe-0" type="text" placeholder="Buscar..." aria-label="Search">
+                            <span class="input-group-text border-0">
+                                <i class="fal fa-search"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <button class="btn btn-success rounded-pill" type="button" id="btnNuevo" data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar nuevo</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Unidades</th>
+                        <th>Fecha expedicion</th>
+                        <th>Fecha vencimiento</th>
+                        <th>Opciones</th>
+                    </tr>
+                    @foreach (FarmaciaWeb.Models.medicamento med in ViewBag.Medicamentos)
+                    {
+                        <tr>
+                            <td>@med.id_medicamento</td>
+                            <td>@med.nombre_medicamento</td>
+                            <td>@med.costo_med</td>
+                            <td>@med.unidades</td>
+                            <td>@med.fecha_expedicion</td>
+                            <td>@med.fecha_vencimiento</td>
+                            @{
+
+                            }
+                            <td>
+                                <a href="#" onclick="modalEliminar(@med.id_medicamento)" class="btn btn-icon btn-light btn-sm"><i class="far fa-trash-alt"></i></a>
+                                <a href="#" onclick="modalForm(@med.id_medicamento,'@med.nombre_medicamento',@med.fk_tipo_medicamento,'@med.costo_med','@med.unidades','@med.fecha_expedicion','@med.fecha_vencimiento')" class="btn btn-icon btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="far fa-edit"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Registro de configuraciones</h5>
+            </div>
+            <div class="modal-body">
+                <div>
+                    @using (Html.BeginForm("Medicamentos", "Dashboard", FormMethod.Post, htmlAttributes: new { id = "formM" }))
+                    {
+                        @Html.HiddenFor(x => x.id_medicamento)
+                        <div class="form-group col-12">
+                            @Html.LabelFor(x => x.nombre_medicamento, "Nombre medicamento:")
+                            @Html.TextBoxFor(x => x.nombre_medicamento, htmlAttributes: new { @class = "form-control form-control-solid", @required = "required" })
+                        </div>
+                        <div class="form-group col-12">
+                            @Html.LabelFor(x => x.fk_tipo_medicamento, "Tipo medicamento"):
+                            @Html.DropDownListFor(x => x.fk_tipo_medicamento, (IEnumerable<SelectListItem>)ViewBag.tmedicamentos, htmlAttributes: new { @class = "form-control form-control-solid", @Value = "0" })
+                        </div>
+                        <div class="form-group col-12">
+                            @Html.LabelFor(x => x.costo_med, "Costo medicamento")
+                            @Html.TextBoxFor(x => x.costo_med, htmlAttributes: new { @class = "form-control form-control-solid", @required = "required" })
+                        </div>
+                        <div class="form-group col-12">
+                            @Html.LabelFor(x => x.unidades,"Cantidad por unidad:")
+                            @Html.TextBoxFor(x => x.unidades, htmlAttributes: new { @class = "form-control form-control-solid", @required = "required" })
+                        </div>
+                        <div class="form-group col-12">
+                            @Html.LabelFor(x => x.fecha_expedicion,"Fecha expedición:")
+                            @Html.TextBoxFor(x => x.fecha_expedicion, htmlAttributes: new { @class = "form-control form-control-solid", @required = "required", type = "date" })
+                        </div>
+                        <div class="form-group col-12">
+                            @Html.LabelFor(x => x.fecha_vencimiento,"Fecha vencimiento:")
+                            @Html.TextBoxFor(x => x.fecha_vencimiento, htmlAttributes: new { @class = "form-control form-control-solid", @required = "required", type = "date" })
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="button" class="btn btn-success" value="Guardar" id="btnGuardar" />
+                <input type="button" class="btn btn-success" value="Guardar modificaciones" id="btnModificar" />
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script>
+        function modalForm($id, $nMed, $tMed, $c, $u, $fE, $fV) {
+            $("#id_medicamento").val($id);
+            $("#nombre_medicamento").val($nMed);
+            $("#fk_tipo_medicamento").val($tMed);
+            $("#costo_med").val($c);
+            $("#unidades").val($u);
+            $("#fecha_expedicion").val($fE);
+            $("#fecha_vencimiento").val($fV);
+            $("#btnGuardar").hide();
+            $("#btnModificar").show();
+            console.log("entro");
+        }
+
+        $(document).ready(function () {
+            $("#btnNuevo").click(function () {
+                $("#btnGuardar").show();
+                $("#btnModificar").hide();
+                console.log("entro");
+            });
+
+            $("#btnGuardar").on("click", function () {
+                jQuery.validator.messages.required = 'Este campo es obligatorio.';
+                if ($("#formM").valid()) {
+                    var datos = $("#formM");
+                    $.ajax({
+                        type: 'post',
+                        data: datos.serialize(),
+                        url: '/Medicamento/InsertarMedicamento/',
+                        success: function (respuesta) {
+                            if (respuesta) location.reload();
+                            else Swal.fire('Error ', 'Error al insertar medicamento', 'error')
+                        }
+                    })
+                } else $(".error").addClass("text-danger");
+            });
+
+            $("#btnModificar").on("click", function () {
+                jQuery.validator.messages.required = 'Este campo es obligatorio.';
+                if ($("#formM").valid()) {
+                    var datos = $("#formM");
+                    $.ajax({
+                        type: 'post',
+                        data: datos.serialize(),
+                        url: '/Medicamento/ModificarMedicamento/',
+                        success: function (respuesta) {
+                            if (respuesta) location.reload();
+                            else Swal.fire('Error ', 'Error al insertar medicamento', 'error')
+                        }
+                    })
+                } else $(".error").addClass("text-danger");;
+            });
+        });
+
+
+        function modalEliminar($id) {
+            Swal.fire({
+                icon: "question",
+                title: "¿Desea eliminar el medicamento?",
+                showCancelButton: true,
+                showCloseButton: true,
+                confirmButtonText: "Confirmar",
+                confirmButtonColor: "#e81500",
+                preConfirm: () => {
+                    eliminar($id);
+                }
+            });
+        }
+
+        function eliminar($id) {
+            $.ajax({
+                type: 'POST',
+                url: '/Medicamento/EliminarMedicamento/',
+                data: { id: $id },
+                success: function (agregado) {
+                    if (agregado) {
+                        Swal.fire(
+                            'Realizado!',
+                            'Tipo de medicamento eliminado',
+                            'success'
+                        ).then(() => {
+                            location.reload();
+                        })
+                    } else {
+                        Swal.fire(
+                            'Error!',
+                            'No se pudo eliminar el tipo de medicamento',
+                            'error'
+                        )
+                    }
+                }
+            });
+        }
+    </script>
+}

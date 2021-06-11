@@ -15,10 +15,10 @@ namespace FarmaciaWeb.Models
     public partial class detalles_notificaciones
     {
         public bool estado { get; set; }
-        public int fk_registro { get; set; }
         public int fk_notificacion { get; set; }
+        public int fk_cliente { get; set; }
     
-        public virtual registro registro { get; set; }
         public virtual notificaciones notificaciones { get; set; }
+        public virtual cliente cliente { get; set; }
     }
 }

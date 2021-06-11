@@ -1,0 +1,100 @@
+﻿
+@{
+    ViewBag.Title = "Kit";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-4 align-self-center"><h1 class="m-0">Promociones</h1></div>
+                    <div class="col-4 offset-2">
+                        <div class="input-group input-group-joined input-group-solid">
+                            <input class="form-control pe-0" type="text" placeholder="Buscar..." aria-label="Search">
+                            <span class="input-group-text border-0">
+                                <i class="fal fa-search"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <a href="~/Kit/Kit" class="btn btn-success rounded-pill btn-block">Nuevo Kit</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <table class="table table-bordered">
+                    <tr>
+                        <th class="td-center">Id</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th class="td-center">Cantidad de productos</th>
+                        <th class="td-center">Ahorro</th>
+                        <th class="td-center">Costo</th>
+                        <th class="td-center">Opciones</th>
+                    </tr>
+                    @foreach (FarmaciaWeb.Models.kit kt in ViewBag.kit)
+                    {
+                        <tr>
+                            <td class="td-center">@kt.id_kit</td>
+                            <td>@kt.nombre</td>
+                            <td>@kt.descripcion</td>
+                            <td class="td-center">@kt.cantidad_med</td>
+                            <td class="td-center">@kt.ahorro</td>
+                            <td class="td-center">@kt.costo</td>
+                            <td class="td-center">
+                                <a href="#" onclick="modalEliminar(@kt.id_kit)" class="btn btn-icon btn-light btn-sm"><i class="far fa-trash-alt"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        function modalEliminar($id) {
+            Swal.fire({
+                icon: "question",
+                title: "¿Desea eliminar el kit de medicamentos?",
+                showCancelButton: true,
+                showCloseButton: true,
+                confirmButtonText: "Confirmar",
+                confirmButtonColor: "#e81500",
+                preConfirm: () => {
+                    eliminar($id);
+                }
+            });
+        }
+
+        function eliminar($id) {
+            $.ajax({
+                type: 'POST',
+                url: '/Kit/EliminarKit/',
+                data: { id: $id },
+                success: function (agregado) {
+                    if (agregado) {
+                        Swal.fire(
+                            'Realizado!',
+                            'Kit de medicamentos eliminado',
+                            'success'
+                        ).then(() => {
+                            location.reload();
+                        })
+                    } else {
+                        Swal.fire(
+                            'Error!',
+                            'No se pudo eliminar el kit',
+                            'error'
+                        )
+                    }
+                }
+            });
+        }
+
+    </script>
+}

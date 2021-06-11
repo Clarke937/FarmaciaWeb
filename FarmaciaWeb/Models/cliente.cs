@@ -14,10 +14,18 @@ namespace FarmaciaWeb.Models
     
     public partial class cliente
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public cliente()
+        {
+            this.detalles_notificaciones = new HashSet<detalles_notificaciones>();
+        }
+    
         public int id_cliente { get; set; }
         public int fk_registro { get; set; }
-        public Nullable<int> recibir_promos { get; set; }
+        public bool estado_notificaciones { get; set; }
     
         public virtual registro registro { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<detalles_notificaciones> detalles_notificaciones { get; set; }
     }
 }

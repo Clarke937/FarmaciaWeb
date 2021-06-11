@@ -21,8 +21,14 @@
                             <div class="nav-link-icon"><i class="fas fa-home"></i></div>Inicio
                         </a>
                         <div class="sidenav-menu-heading">Catalogos BD</div>
+                        <a href="@Url.Action("Empleado","Dashboard")" class="nav-link">
+                            <div class="nav-link-icon"><i class="fas fa-users-medical"></i></div>Empleados
+                        </a>
                         <a href="@Url.Action("TipoMedicamentos","Dashboard")" class="nav-link">
                             <div class="nav-link-icon"><i class="fa fa-pills"></i></div>Tipos de Medicamentos
+                        </a>
+                        <a href="@Url.Action("Medicamentos","Dashboard")" class="nav-link">
+                            <div class="nav-link-icon"><i class="fas fa-prescription-bottle-alt"></i></div>Medicamentos
                         </a>
                         <a href="@Url.Action("Proveedores","Dashboard")" class="nav-link">
                             <div class="nav-link-icon"><i class="fa fa-shipping-fast"></i></div>Proveedores
@@ -30,30 +36,38 @@
                         <a href="@Url.Action("Promociones","Dashboard")" class="nav-link">
                             <div class="nav-link-icon"><i class="fa fa-tags"></i></div>Promociones
                         </a>
+                        <a href="@Url.Action("Kit","Dashboard")" class="nav-link">
+                            <div class="nav-link-icon"><i class="fas fa-medkit"></i></div>kit de medicamentos
+                        </a>
                         <a href="@Url.Action("Sucursales","Dashboard")" class="nav-link">
                             <div class="nav-link-icon"><i class="fa fa-clinic-medical"></i></div>Sucursales
                         </a>
                         <a href="@Url.Action("TipoVentas","Dashboard")" class="nav-link">
                             <div class="nav-link-icon"><i class="fa fa-envelope-open-dollar"></i></div>Tipo de ventas
                         </a>
-                        <a href="@Url.Action("Reportes","Reportes")" class="nav-link">
+                        <a href="@Url.Action("Reporte","Dashboard")" class="nav-link">
                             <div class="nav-link-icon"><i class="fas fa-file-chart-line"></i></div>Reportes Generales
                         </a>
                     </div>
                 </div>
-                <div class="sidenav-footer"></div>
+                <div class="sidenav-footer">
+                    <a href="@Url.Action("CerrarSesion","Login")" class="nav-link">
+                        <i class="fal fa-sign-out mr-2"></i>Cerrar Sesión
+                    </a>    
+                </div>
             </div>
         </div>
         <div id="layoutSidenav_content">
-            <main class="container mt-5 mb-10">
-                <img src="~/Content/Imgs/logo1.png" alt="Alternate Text" class="img-fluid mb-5" />
+            <main class="container mt-3 mb-10">
+                <img src="~/Content/Imgs/logo1.png" alt="Alternate Text" class="img-fluid mb-4" />
                 @RenderBody()
             </main>
         </div>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/jquery-3.6.0.js")
+    @Scripts.Render("~/Scripts/bootstrap.js")
+    @Scripts.Render("~/Scripts/jquery.validate.js")
     @Scripts.Render("~/Scripts/theme.js")
     @Scripts.Render("~/Scripts/fontawesome-pro.js")
     @Scripts.Render("~/Scripts/jquery.validate.js")

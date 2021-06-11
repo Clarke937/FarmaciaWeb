@@ -8,13 +8,13 @@ namespace FarmaciaWeb.Observer
 {
     public interface IRegistros
     {
-        void Update(int idRes, int idNotify);
+        void Update(int idC, int idNotify);
     }
     
     public interface ISujeto
     {
-        void Activar(registro registros);
-        void Desactivar(registro registros);
+        void Activar(cliente cliente);
+        void Desactivar(cliente cliente);
         void Notificar();
     }
 }

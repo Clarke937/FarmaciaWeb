@@ -10,10 +10,10 @@ namespace FarmaciaWeb.Observer
     {
         arqfarmaciaEntities dbc = new arqfarmaciaEntities();
 
-        public void Update(int idRes, int idNotify)
+        public void Update(int idC, int idNotify)
         {
             detalles_notificaciones detn = new detalles_notificaciones();
-            detn.fk_registro = idRes;
+            detn.fk_cliente = idC;
             detn.estado = true;
             detn.fk_notificacion = idNotify;
             dbc.detalles_notificaciones.Add(detn);

@@ -19,16 +19,23 @@ namespace FarmaciaWeb.Models
         {
             this.detalle_pedido = new HashSet<detalle_pedido>();
             this.inventario = new HashSet<inventario>();
+            this.detalles_kit = new HashSet<detalles_kit>();
         }
     
         public int id_medicamento { get; set; }
         public string nombre_medicamento { get; set; }
         public int fk_tipo_medicamento { get; set; }
+        public decimal costo_med { get; set; }
+        public string unidades { get; set; }
+        public string fecha_expedicion { get; set; }
+        public string fecha_vencimiento { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<detalle_pedido> detalle_pedido { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<inventario> inventario { get; set; }
         public virtual tipo_medicamento tipo_medicamento { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<detalles_kit> detalles_kit { get; set; }
     }
 }

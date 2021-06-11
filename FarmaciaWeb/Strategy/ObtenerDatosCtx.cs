@@ -31,6 +31,18 @@ namespace FarmaciaWeb.Strategy
         {
             this.obtenerDatos = new TipoVentasController();
         }
+        public void ObtenerDatosKit()
+        {
+            this.obtenerDatos = new KitController();
+        }
+        public void ObtenerDatosMed()
+        {
+            this.obtenerDatos = new MedicamentoController();
+        }
+        public void ObtenerDatosEmp()
+        {
+            this.obtenerDatos = new EmpleadoController();
+        }
 
         public List<object> SetDatos()
         {

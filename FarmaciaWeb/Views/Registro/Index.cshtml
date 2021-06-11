@@ -5,6 +5,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@if (ViewBag.creado != null)
+{
+    @section Scripts
+    {
+        <script>
+            Swal.fire('Hecho', 'Su cuenta ha sido creada', 'success');
+        </script>
+    }
+}
+
 <div class="row mb-5">
     <div class="col-12 text-center">
         <img src="~/Content/Imgs/logo1.png" class="img-fluid" />
@@ -59,7 +69,7 @@
                                 </div>
                                 <div class="form-group col-4">
                                     <label>Genero:</label>
-                                    @Html.DropDownListFor(x => x.genero, (List<SelectListItem>) ViewBag.Generos, htmlAttributes: new { @class = "form-control form-control-solid" })
+                                    @Html.DropDownListFor(x => x.genero, (List<SelectListItem>)ViewBag.Generos, htmlAttributes: new { @class = "form-control form-control-solid" })
                                     @Html.ValidationMessageFor(x => x.genero, "", htmlAttributes: new { @class = "text-danger" })
                                 </div>
                                 <div class="form-group col-4">
@@ -81,11 +91,11 @@
                     </div>
                 </div>
                 <div class="card-footer bg-white">
-                    <a href="@Url.Action("Index","Registro")" class="btn btn-light rounded-pill mx-2">Ya estoy registrado</a>
+                    <a href="@Url.Action("Index","Login")" class="btn btn-light rounded-pill mx-2">Ya estoy registrado</a>
                     <button type="submit" class="btn btn-success rounded-pill">Crear mi usuario <i class="fal fa-arrow-right ml-4"></i></button>
                 </div>
             </div>
         </form>
-        
+
     </div>
 </div>

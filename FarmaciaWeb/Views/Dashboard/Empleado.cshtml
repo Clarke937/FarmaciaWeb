@@ -1,0 +1,94 @@
+﻿@{
+    ViewBag.Title = "Empleado";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-3 align-self-center"><h1 class="m-0">Empleados</h1></div>
+                    <div class="col-4 offset-2">
+                        <div class="input-group input-group-joined input-group-solid">
+                            <input class="form-control pe-0" type="text" placeholder="Buscar..." aria-label="Search">
+                            <span class="input-group-text border-0">
+                                <i class="fal fa-search"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <a href="~/Empleado/NuevoEmpleado/" class="btn btn-success rounded-pill">Agregar nuevo</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Carnet</th>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>Salario</th>
+                        <th>DUI</th>
+                        <th>Sucursal</th>
+                        <th>Opciones</th>
+                    </tr>
+                    @foreach (FarmaciaWeb.Models.vendedor med in ViewBag.Empleados)
+                    {
+                        <tr>
+                            <td>@med.carnet</td>
+                            <td>@med.registro.nombres</td>
+                            <td>@med.registro.apellidos</td>
+                            <td>@med.salario</td>
+                            <td>@med.registro.dui</td>
+                            <td>@med.sucursal.nombre_sucursal</td>
+                            @{
+
+                            }
+                            <td>
+                                <a href="#" onclick="modalEliminar(@med.id_vendedor)" class="btn btn-icon btn-light btn-sm"><i class="far fa-trash-alt"></i></a>
+                                <a href="#" class="btn btn-icon btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="far fa-edit"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+
+    <script>
+        function modalEliminar($id) {
+            Swal.fire({
+                icon: "question",
+                title: "¿Desea eliminar el empleado?",
+                showCancelButton: true,
+                showCloseButton: true,
+                confirmButtonText: "Confirmar",
+                confirmButtonColor: "#e81500",
+                preConfirm: () => {
+                    eliminar($id);
+                }
+            });
+        }
+
+        function eliminar($id) {
+            $.ajax({
+                type: 'POST',
+                url: '/Empleado/Eliminar/',
+                data: { id: $id },
+                success: function (agregado) {
+                    if (agregado.success) {
+                        Swal.fire('Realizado!', agregado.msg,'success').then(() => location.reload())
+                    } else {
+                        Swal.fire('Error!', agregado.msg,'error')
+                    }
+                }
+            });
+        }
+    </script>
+}
+

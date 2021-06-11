@@ -22,10 +22,9 @@ namespace FarmaciaWeb.Models
         }
     
         public int id_login { get; set; }
-
-        [Required(ErrorMessage = "Debe ingresar un nombre de usuario")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Debe ingresar un nombre de usuario")]
         public string usuario { get; set; }
-        [Required(ErrorMessage = "Debe ingresar una contraseña")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Debe ingresar una contraseña")]
         public string contrasenia { get; set; }
         public int fk_nivel { get; set; }
     

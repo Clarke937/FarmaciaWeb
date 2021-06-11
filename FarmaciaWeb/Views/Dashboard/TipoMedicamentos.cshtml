@@ -9,7 +9,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-4 align-self-center"><h1 class="m-0">Tipo de medicamentos</h1></div>
+                    <div class="col-3 align-self-center"><h1 class="m-0">Tipo de medicamentos</h1></div>
                     <div class="col-4 offset-2">
                         <div class="input-group input-group-joined input-group-solid">
                             <input class="form-control pe-0" type="text" placeholder="Buscar..." aria-label="Search">
@@ -18,7 +18,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="col-2">
+                    <div class="col-3">
                         <a href="#" onclick="modalForm()" class="btn btn-success rounded-pill btn-block">Nuevo Tipo</a>
                     </div>
                 </div>
@@ -29,8 +29,6 @@
                         <th>Id</th>
                         <th>Tipo de medicamento</th>
                         <th>Descripción</th>
-                        <th>Fecha de expedición</th>
-                        <th>Fecha de vencimiento</th>
                         <th>Opciones</th>
                     </tr>
                     @foreach (FarmaciaWeb.Models.tipo_medicamento pro in ViewBag.TipoMedicamentos)
@@ -39,11 +37,10 @@
                             <td>@pro.id_tipo_medicamento</td>
                             <td>@pro.tipo_medicamento1</td>
                             <td>@pro.descripcion</td>
-                            <td>@pro.fecha_expedicion</td>
-                            <td>@pro.fecha_vencimiento</td>
+
                             <td>
                                 <a href="#" onclick="modalEliminar(@pro.id_tipo_medicamento)" class="btn btn-icon btn-light btn-sm"><i class="far fa-trash-alt"></i></a>
-                                <a href="#" onclick="modalForm(@pro.id_tipo_medicamento, '@pro.tipo_medicamento1' , '@pro.descripcion' ,'@pro.fecha_expedicion','@pro.fecha_vencimiento')" class="btn btn-icon btn-light btn-sm"><i class="far fa-edit"></i></a>
+                                <a href="#" onclick="modalForm(@pro.id_tipo_medicamento, '@pro.tipo_medicamento1' , '@pro.descripcion')" class="btn btn-icon btn-light btn-sm"><i class="far fa-edit"></i></a>
                             </td>
                         </tr>
                     }
@@ -57,21 +54,17 @@
     
     <script>
 
-        function modalForm($id, $a, $b, $c, $d) {
+        function modalForm($id, $a, $b) {
 
             $id = ($id == null) ? "" : $id;
             $a = ($a == null) ? "" : $a;
             $b = ($b == null) ? "" : $b;
-            $c = ($c == null) ? "" : $c;
-            $d = ($d == null) ? "" : $d;
             $modaltitle = ($id == "") ? "Nuevo tipo" : "Modificar Tipo";
             $modalbtn = ($id == "") ? "Agregar" : "Modificar";
 
             $formhtml = "<div class='row py-4'><div class='col-12'>";
             $formhtml += "<div class='form-group text-left'><label>Tipo de medicamento:</label><input type='text' id='input_1' class='form-control' value='" + $a + "' /></div>";
             $formhtml += "<div class='form-group text-left'><label>Descripción:</label><input type='text' id='input_2' class='form-control' value='" + $b + "' /></div>";
-            $formhtml += "<div class='form-group text-left'><label>Fecha Expedición:</label><input type='date' id='input_3' class='form-control' value='" + $c + "' /></div>";
-            $formhtml += "<div class='form-group text-left'><label>Fecha Expiración:</label><input type='date' id='input_4' class='form-control' value='" + $d + "' /></div>";
             $formhtml += "</div></div>";
 
 
@@ -86,23 +79,21 @@
 
                     $tipo = $("#input_1").val();
                     $descripcion = $("#input_2").val();
-                    $expedicion = $("#input_3").val();
-                    $expiracion = $("#input_4").val();
 
                     if ($id == "") {
-                        agregar($tipo, $descripcion, $expedicion,$expiracion);
+                        agregar($tipo, $descripcion);
                     } else {
-                        modificar($id, $tipo, $descripcion, $expedicion, $expiracion);
+                        modificar($id, $tipo, $descripcion);
                     }
                 }
             });
         }
 
-        function agregar($a, $b, $c, $d) {
+        function agregar($a, $b) {
             $.ajax({
                 type: 'POST',
                 url: '/TipoMedicamento/InsertarTipoMedicamento/',
-                data: { tipo: $a, descripcion: $b, expedicion: $c, expiracion: $d },
+                data: { tipo: $a, descripcion: $b},
                 success: function (agregado) {
                     if (agregado) {
                         Swal.fire(
@@ -123,11 +114,11 @@
             });
         }
 
-        function modificar($id, $a, $b, $c, $d) {
+        function modificar($id, $a, $b) {
             $.ajax({
                 type: 'POST',
                 url: '/TipoMedicamento/ModificarTipoMedicamento/',
-                data: { id: $id, tipo: $a, descripcion: $b, expedicion: $c, expiracion: $d },
+                data: { id: $id, tipo: $a, descripcion: $b},
                 success: function (agregado) {
                     if (agregado) {
                         Swal.fire(

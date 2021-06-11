@@ -12,12 +12,6 @@ namespace FarmaciaWeb.Controllers
     {
         arqfarmaciaEntities dbc = new arqfarmaciaEntities();
 
-        // GET: Proveedores
-        public List<proveedor> ObtenerProveedores()
-        {
-            return dbc.proveedor.ToList();
-        }
-
         [HttpPost]
         public JsonResult InsertarProveedor(string nombre, string direccion, string telefono)
         {

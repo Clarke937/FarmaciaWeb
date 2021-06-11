@@ -39,11 +39,13 @@ namespace FarmaciaWeb.Models
         public virtual DbSet<proveedor> proveedor { get; set; }
         public virtual DbSet<registro> registro { get; set; }
         public virtual DbSet<sucursal> sucursal { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<tipo_medicamento> tipo_medicamento { get; set; }
         public virtual DbSet<tipo_venta> tipo_venta { get; set; }
         public virtual DbSet<vendedor> vendedor { get; set; }
         public virtual DbSet<detalles_notificaciones> detalles_notificaciones { get; set; }
         public virtual DbSet<notificaciones> notificaciones { get; set; }
+        public virtual DbSet<detalles_kit> detalles_kit { get; set; }
+        public virtual DbSet<kit> kit { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     }
 }

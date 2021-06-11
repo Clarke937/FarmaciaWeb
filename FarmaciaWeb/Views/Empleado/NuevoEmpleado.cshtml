@@ -1,0 +1,115 @@
+﻿@model FarmaciaWeb.Models.Registro_Empleado
+@{
+    ViewBag.Title = "NuevoEmpleado";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+@if (ViewBag.creado != null)
+{
+    @section Scripts
+    {
+        <script>
+            Swal.fire('Hecho', 'El empleado ha sido registrado', 'success');
+        </script>
+    }
+}
+
+<div class="row">
+    <div class="col-12">
+        <form action="/Empleado/Agregar" method="post">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="m-0">Registro de empleados</h1>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 mb-4">
+                            <h4>Datos de inicio de sesión:</h4>
+                            <hr />
+                        </div>
+                        <div class="form-group col-4">
+                            <label>Usuario:</label>
+                            @Html.TextBoxFor(x => x.usuario, htmlAttributes: new { @class = "form-control form-control-solid" })
+                            @Html.ValidationMessageFor(x => x.usuario, "", htmlAttributes: new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group col-4">
+                            <label>Contraseña:</label>
+                            @Html.PasswordFor(x => x.contrasenia, htmlAttributes: new { @class = "form-control form-control-solid" })
+                            @Html.ValidationMessageFor(x => x.contrasenia, "", htmlAttributes: new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group col-4">
+                            <label>Repetir Contraseña:</label>
+                            @Html.PasswordFor(x => x.repetir_contrasenia, htmlAttributes: new { @class = "form-control form-control-solid" })
+                            @Html.ValidationMessageFor(x => x.repetir_contrasenia, "", htmlAttributes: new { @class = "text-danger" })
+                        </div>
+                        <div class="col-12 my-4">
+                            <h4>Datos generales del empleado:</h4>
+                            <hr />
+                        </div>
+                        <div class="form-group col-4">
+                            <label>Carnet del empleado:</label>
+                            @Html.TextBoxFor(x => x.carnet, htmlAttributes: new { @class = "form-control form-control-solid" })
+                            @Html.ValidationMessageFor(x => x.carnet, "", htmlAttributes: new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group col-4">
+                            <label>Salario del empleado:</label>
+                            @Html.TextBoxFor(x => x.salario, htmlAttributes: new { @class = "form-control form-control-solid" })
+                            @Html.ValidationMessageFor(x => x.salario, "", htmlAttributes: new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group col-4">
+                            <label>Sucursal:</label>
+                            @Html.DropDownListFor(x => x.sucursal, (List<SelectListItem>)ViewBag.sucursales, htmlAttributes: new { @class = "form-control form-control-solid" })
+                            @Html.ValidationMessageFor(x => x.sucursal, "", htmlAttributes: new { @class = "text-danger" })
+                        </div>
+                        <div class="col-12 my-4">
+                            <h4>Datos personales del empleado:</h4>
+                            <hr />
+                        </div>
+                        <div class="form-group col-4">
+                            <label>Nombres personales:</label>
+                            @Html.TextBoxFor(x => x.nombres, htmlAttributes: new { @class = "form-control form-control-solid" })
+                            @Html.ValidationMessageFor(x => x.nombres, "", htmlAttributes: new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group col-4">
+                            <label>Apellidos personales:</label>
+                            @Html.TextBoxFor(x => x.apellidos, htmlAttributes: new { @class = "form-control form-control-solid" })
+                            @Html.ValidationMessageFor(x => x.apellidos, "", htmlAttributes: new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group col-4">
+                            <label>Numero de dui:</label>
+                            @Html.TextBoxFor(x => x.dui, htmlAttributes: new { @class = "form-control form-control-solid" })
+                            @Html.ValidationMessageFor(x => x.dui, "", htmlAttributes: new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group col-4">
+                            <label>Numero de nit:</label>
+                            @Html.TextBoxFor(x => x.nit, htmlAttributes: new { @class = "form-control form-control-solid" })
+                            @Html.ValidationMessageFor(x => x.nit, "", htmlAttributes: new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group col-4">
+                            <label>Genero:</label>
+                            @Html.DropDownListFor(x => x.genero, (List<SelectListItem>)ViewBag.Generos, htmlAttributes: new { @class = "form-control form-control-solid" })
+                            @Html.ValidationMessageFor(x => x.genero, "", htmlAttributes: new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group col-4">
+                            <label>Edad:</label>
+                            @Html.TextBoxFor(x => x.edad, htmlAttributes: new { @class = "form-control form-control-solid", @type = "number" })
+                            @Html.ValidationMessageFor(x => x.edad, "", htmlAttributes: new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Direccion:</label>
+                            @Html.TextAreaFor(x => x.direccion, htmlAttributes: new { @class = "form-control form-control-solid" })
+                            @Html.ValidationMessageFor(x => x.direccion, "", htmlAttributes: new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card-footer bg-white">
+                    <button type="submit" class="btn btn-success rounded-pill">Agregar empleado</button>
+                    <a href="@Url.Action("Empleado","Dashboard")" class="btn btn-light rounded-pill mx-2">Cancelar</a>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+

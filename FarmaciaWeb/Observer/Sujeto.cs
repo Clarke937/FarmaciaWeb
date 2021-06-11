@@ -11,27 +11,27 @@ namespace FarmaciaWeb.Observer
     {
         private arqfarmaciaEntities dbc = new arqfarmaciaEntities();
         private int idNotify;
-        public void Activar(registro registros)
+        public void Activar(cliente cliente)
         {
-            registro res = dbc.registro.Find(registros.id_registro);
-            res.estado_notificaciones = true;
+            cliente cl = dbc.cliente.Find(cliente.id_cliente);
+            cl.estado_notificaciones = true;
             dbc.SaveChanges();
         }
 
-        public void Desactivar(registro registros)
+        public void Desactivar(cliente cliente)
         {
-            registro res = dbc.registro.Find(registros.id_registro);
-            res.estado_notificaciones = false;
+            cliente cl = dbc.cliente.Find(cliente.id_cliente);
+            cl.estado_notificaciones = false;
             dbc.SaveChanges();
         }
 
         public void Notificar()
         {
-            List<registro> res = dbc.registro.Where(x => x.estado_notificaciones.Value).ToList();
-            foreach (registro registro in res)
+            List<cliente> cliente = dbc.cliente.Where(x => x.estado_notificaciones == true).ToList();
+            foreach (cliente cl in cliente)
             {
 
-                new Observador().Update(registro.id_registro, idNotify);
+                new Observador().Update(cl.id_cliente, idNotify);
             }
         }
 

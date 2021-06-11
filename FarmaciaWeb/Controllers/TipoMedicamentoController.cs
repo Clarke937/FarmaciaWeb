@@ -12,19 +12,12 @@ namespace FarmaciaWeb.Controllers
     {
         arqfarmaciaEntities dbc = new arqfarmaciaEntities();
 
-        public List<tipo_medicamento> ObtenerTMedicamento()
-        {
-            return dbc.tipo_medicamento.ToList();
-        }
-
         [HttpPost]
-        public JsonResult InsertarTipoMedicamento(string tipo, string descripcion, string expedicion, string expiracion)
+        public JsonResult InsertarTipoMedicamento(string tipo, string descripcion)
         {
             tipo_medicamento pro = new tipo_medicamento();
             pro.tipo_medicamento1 = tipo;
             pro.descripcion = descripcion;
-            pro.fecha_expedicion = expedicion;
-            pro.fecha_vencimiento = expiracion;
 
             dbc.tipo_medicamento.Add(pro);
             int affected = dbc.SaveChanges();
@@ -40,13 +33,11 @@ namespace FarmaciaWeb.Controllers
         }
 
         [HttpPost]
-        public JsonResult ModificarTipoMedicamento(int id, string tipo, string descripcion, string expedicion, string expiracion)
+        public JsonResult ModificarTipoMedicamento(int id, string tipo, string descripcion)
         {
             tipo_medicamento pro = this.dbc.tipo_medicamento.Find(id);
             pro.tipo_medicamento1 = tipo;
             pro.descripcion = descripcion;
-            pro.fecha_expedicion = expedicion;
-            pro.fecha_vencimiento = expiracion;
 
             int affected = dbc.SaveChanges();
             return Json(affected > 0);

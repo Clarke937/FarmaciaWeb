@@ -12,11 +12,6 @@ namespace FarmaciaWeb.Controllers
     {
         arqfarmaciaEntities dbc = new arqfarmaciaEntities();
 
-        public List<sucursal> ObtenerSucursales()
-        {
-            return dbc.sucursal.ToList();
-        }
-
         [HttpPost]
         public JsonResult InsertarSucursal(string nombre, string direccion, int nempleados)
         {

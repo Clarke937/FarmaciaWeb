@@ -1,0 +1,218 @@
+﻿@model FarmaciaWeb.Composite.Medicamentos
+
+@{
+    ViewBag.Title = "Kit";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+<div class="row">
+    <div class="col-12">
+        <div id="med">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="m-0">Registro de Combos de medicamentos</h1>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <h3 class="mb-4">Datos generales del combo:</h3>
+                            @Html.Partial("DatosKit")
+                            <hr />
+                        </div>
+                        <div class="col-12">
+                            <h3 class="mb-4">Datos de los medicamentos:</h3>
+                            <form class="row">
+                                <div class="form-group col-3">
+                                    <label>Seleccione un medicamento:</label>
+                                    @Html.DropDownListFor(x => x.idMed, (IEnumerable<SelectListItem>)ViewBag.list_med, htmlAttributes: new { @class = "form-control form-control-solid" })
+                                </div>
+                                <div class="form-group col-3">
+                                    <label>Cantidad por unidad:</label>
+                                    @Html.TextBoxFor(x => x.cantidad, htmlAttributes: new { @class = "form-control form-control-solid", @type = "number" })
+                                    @Html.ValidationMessageFor(x => x.cantidad, "", htmlAttributes: new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-3 m-0">
+                                    <label>Tipo de descuento:</label>
+                                    <select class="form-control form-control-solid" id="cmbDesc">
+                                        <option value="0">Monto fijo</option>
+                                        <option value="1">Porcentaje</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-3">
+                                    <label>Descuento:</label>
+                                    @Html.TextBoxFor(x => x.descuento, htmlAttributes: new { @class = "form-control form-control-solid" })
+                                    @Html.ValidationMessageFor(x => x.descuento, "", htmlAttributes: new { @class = "text-danger" })
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-12 text-right mb-3">
+                            <button type="button" id="btnAdd" class="btn btn-success rounded-pill">Agregar medicamento</button>
+                        </div>
+                    </div>
+
+                    <table class="table table-bordered">
+                        <tr>
+                            <th class="td-center">Id</th>
+                            <th>Titulo</th>
+                            <th class="td-center">Cantidad</th>
+                            <th class="td-center">Costo</th>
+                            <th class="td-center">Ahorro</th>
+                            <th class="td-center">Opciones</th>
+                        </tr>
+                        @if (ViewBag.medicamentos != null)
+                        {
+                            foreach (FarmaciaWeb.Composite.Medicamentos med in ViewBag.medicamentos)
+                            {
+                                <tr>
+                                    <td class="td-center">@med.idMed</td>
+                                    <td>@med.nombreMed</td>
+                                    <td class="td-center">@med.cantidad</td>
+                                    <td class="td-center">@String.Format("${0:0.00}", med.costo)</td>
+                                    <td class="td-center">@String.Format("${0:0.00}", med.descuento)</td>
+                                    @{
+
+                                    }
+                                    <td class="td-center">
+                                        <a href="#" onclick="eliminar(@med.idMed)" class="btn btn-icon btn-light btn-sm"><i class="far fa-trash-alt"></i></a>
+                                        <a href="#" class="btn btn-icon btn-light btn-sm" onclick="cargar(@med.idMed,'@med.cantidad','@med.descuento')"><i class="far fa-edit"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </table>
+                </div>
+                <div class="card-footer bg-white">
+                    <button type="button" id="btnFinalizar" class="btn btn-success rounded-pill">Finalizar</button>
+                    <input type="submit" id="btnCancelar" class="btn btn-primary rounded-pill" value="Cancelar" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $("#btnAdd").click(function () {
+            var d = $("#idMed");
+            var d1 = $("#cantidad");
+            var d2 = $("#cmbDesc");
+            var d3 = $("#descuento");
+            $.ajax({
+                type: 'POST',
+                url: '/Kit/Kit/',
+                data: {
+                    id: d.val(),
+                    cantidad: d1.val(),
+                    tipo: d2.val(),
+                    ahorro: d3.val(),
+                },
+                success: function () {
+                    Swal.fire({
+                        position: 'bottom-end',
+                        icon: 'success',
+                        title: 'Your work has been saved',
+                        showConfirmButton: false,
+                        timer: 1200
+                    }).then(() => {
+                        location.reload();
+                    })
+                }
+            });
+        });
+
+        $("#btnCancelar").click(function () {
+            Swal.fire({
+                icon: "question",
+                title: "¿Desea descartar el kit?",
+                text: "Se perderá todo el proceso realizado",
+                showCancelButton: true,
+                showCloseButton: true,
+                confirmButtonText: "Confirmar",
+                confirmButtonColor: "#e81500",
+                preConfirm: () => {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Kit/Cancelar/',
+                        success: function () {
+                            location.href = "/Dashboard/Kit/";
+                        }
+                    });
+                }
+            });
+        });
+
+        $("#btnFinalizar").click(function () {
+            if (@ViewBag.medicamentos.Count == 0) {
+                Swal.fire('Error', 'No hay medicamentos en la lista', 'error')
+            } else {
+                Swal.fire({
+                    icon: "question",
+                    title: "¿Desea crear el kit de medicamentos?",
+                    showCancelButton: true,
+                    showCloseButton: true,
+                    confirmButtonText: "Confirmar",
+                    confirmButtonColor: "#e81500",
+                    preConfirm: () => {
+                        convertir();
+                        var datos = $("#cliente");
+                        $.ajax({
+                            type: 'POST',
+                            url: '/Kit/Finalizar/',
+                            data: datos.serialize(),
+                            success: function (response) {
+                                if (response.success) {
+                                    Swal.fire(
+                                        '¡Realizado!',
+                                        '¡Kit agregado exitosamente!',
+                                        'success'
+                                    ).then(() => {
+                                        location.href = "/Dashboard/Kit/";
+                                    })
+                                } else Swal.fire('Error', response.msg, 'error');
+                            }
+                        });
+                    }
+                });
+            }
+        });
+
+        function eliminar($id) {
+            Swal.fire({
+                icon: "question",
+                title: "¿Desea eliminar el medicamento?",
+                showCancelButton: true,
+                showCloseButton: true,
+                confirmButtonText: "Confirmar",
+                confirmButtonColor: "#e81500",
+                preConfirm: () => {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Kit/Eliminar/',
+                        data: { id: $id },
+                        success: function () {
+                            location.reload();
+                        }
+                    });
+                }
+            });
+        };
+
+        function convertir() {
+            var regex = /[0-9]*\.[0-9]*/g;
+            let $ahorro = $("#ahorro").val();
+            let $costo = $("#costo").val();
+            $ahorro = $ahorro.match(regex);
+            $costo = $costo.match(regex);
+            $("#ahorro").val($ahorro[0]);
+            $("#costo").val($costo[0]);
+        }
+
+        function cargar(id, cant, desc) {
+            $("#idMed").val(id);
+            $("#cantidad").val(cant);
+            $("#descuento").val(desc);
+            $("#idMed").attr("disabled", true);
+            document.querySelector("#btnAdd").innerHTML = "Guardar cambios";
+        }
+    </script>
+
+}  

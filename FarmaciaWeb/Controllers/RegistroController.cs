@@ -15,6 +15,8 @@ namespace FarmaciaWeb.Controllers
 
         public ActionResult Index()
         {
+            if (Session["estado"] != null) ViewBag.creado = true;
+            else ViewBag.creado = null;
             ViewBag.Generos = getGeneros();
             return View();
         }
@@ -34,7 +36,6 @@ namespace FarmaciaWeb.Controllers
             registro.nombres = lr.nombres;
             registro.apellidos = lr.apellidos;
             registro.dui = lr.dui;
-            registro.estado_notificaciones = true;
             registro.nit = lr.nit;
             registro.direccion = lr.direccion;
             registro.genero = getGeneros()[lr.genero].Value;
@@ -44,7 +45,15 @@ namespace FarmaciaWeb.Controllers
             //
             dbc.registro.Add(registro);
             dbc.SaveChanges();
-
+            //
+            cliente cliente = new cliente();
+            cliente.estado_notificaciones = true;
+            cliente.fk_registro = registro.id_registro;
+            //
+            dbc.cliente.Add(cliente);
+            dbc.SaveChanges();
+            //
+            Session["estado"] = true;
             return RedirectToAction("Index","Registro");
         }
 
@@ -65,7 +74,5 @@ namespace FarmaciaWeb.Controllers
             generos.Add(new SelectListItem() { Value = "3", Text = "Otro" });
             return generos;
         }
-
-
     }
 }

@@ -24,7 +24,7 @@ namespace FarmaciaWeb.Models
         public string titulo { get; set; }
         public string descripcion { get; set; }
         public Nullable<decimal> extras { get; set; }
-        public Nullable<bool> estado { get; set; }
+        public bool estado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<detalles_notificaciones> detalles_notificaciones { get; set; }

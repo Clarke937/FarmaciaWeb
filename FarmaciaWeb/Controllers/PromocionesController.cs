@@ -13,11 +13,9 @@ namespace FarmaciaWeb.Controllers
     public class PromocionesController : Controller, IObtenerDatos
     {
         arqfarmaciaEntities dbc = new arqfarmaciaEntities();
+
+        //Variable para el observable
         private Sujeto sujeto = new Sujeto();
-        public List<promocion> ObtenerPromociones()
-        {
-            return dbc.promocion.ToList();
-        }
 
         [HttpPost]
         public JsonResult InsertarPromocion(string titulo, string descripcion, decimal ahorro)
@@ -30,6 +28,7 @@ namespace FarmaciaWeb.Controllers
             dbc.promocion.Add(pro);
             int affected = dbc.SaveChanges();
 
+            //Aca agrego un nuevo evento que activa los observadores
             sujeto.CrearNotificacion(titulo,descripcion,ahorro);
             return Json(affected > 0);
         }
@@ -54,6 +53,8 @@ namespace FarmaciaWeb.Controllers
             return Json(affected > 0);
         }
 
+
+        //Este metodo heredado recupera los datos para obtener por medio de la estrategia
         public List<object> GetDatos()
         {
             List<object> list = new List<object>();

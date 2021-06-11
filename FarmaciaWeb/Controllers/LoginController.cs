@@ -22,15 +22,17 @@ namespace FarmaciaWeb.Controllers
         {
 
             login usuario = dbc.login.Where(x => x.usuario.ToLower().Equals(login.usuario.ToLower())).FirstOrDefault();
-            registro registro = dbc.registro.Where(x => x.fk_login.Equals(usuario.id_login)).FirstOrDefault();
+            
             if (usuario != null)
             {
                 if (Crypter.CheckPassword(login.contrasenia, usuario.contrasenia))
                 {
                     if (usuario.fk_nivel.Equals(3))
                     {
+                        registro registro = dbc.registro.Where(x => x.fk_login.Equals(usuario.id_login)).FirstOrDefault();
+                        cliente cliente = dbc.cliente.Where(x => x.fk_registro.Equals(registro.id_registro)).FirstOrDefault();
                         this.Session["currentUser"] = usuario;
-                        this.Session["id_user"] = registro.id_registro;
+                        this.Session["id_user"] = cliente.id_cliente;
                         this.Session["user"] = usuario.usuario;
                         this.Session["name"] = registro.nombres.ToUpper();
                         this.Session["ape"] = registro.apellidos.ToUpper();

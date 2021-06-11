@@ -13,13 +13,6 @@ namespace FarmaciaWeb.Controllers
 {
     public class ReporteController : Controller
     {
-        // GET: Reporte
-        public ActionResult Index()
-        {
-            return View();
-
-        }
-
         [HttpGet]
         public ActionResult VerReporte(string tipo)
         {

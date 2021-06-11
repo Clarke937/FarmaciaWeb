@@ -23,8 +23,6 @@ namespace FarmaciaWeb.Models
         public int id_tipo_medicamento { get; set; }
         public string tipo_medicamento1 { get; set; }
         public string descripcion { get; set; }
-        public string fecha_expedicion { get; set; }
-        public string fecha_vencimiento { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<medicamento> medicamento { get; set; }
