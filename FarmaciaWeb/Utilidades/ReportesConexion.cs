@@ -10,7 +10,7 @@ namespace FarmaciaWeb.Models
         public static CrystalDecisions.Shared.ConnectionInfo getConexion()
         {
             CrystalDecisions.Shared.ConnectionInfo infocon = new CrystalDecisions.Shared.ConnectionInfo();
-            infocon.ServerName = @"DESKTOP-9IECHGT";
+            infocon.ServerName = @"LAPTOP-RGAMU58L\LOCALHOST";
             infocon.DatabaseName = "neptuno";
             infocon.IntegratedSecurity = true;
 

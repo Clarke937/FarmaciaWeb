@@ -8,18 +8,21 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using FarmaciaWeb.Rpts.Empleados;
 
 namespace FarmaciaWeb.Controllers
 {
     public class ReporteController : Controller
     {
-        [HttpGet]
+      
         public ActionResult VerReporte(string tipo)
         {
             var reporte = new ReportClass();
             ReportesFarmacia rf = CreadorObjetos.AsignarTipo(tipo);
             string ruta = rf.generarReporte();
             reporte.FileName = Server.MapPath(ruta);
+            reporte.Refresh();
+            reporte.Load();
 
             //Conexion para el reporte
             var coninfo = ReportesConexion.getConexion();

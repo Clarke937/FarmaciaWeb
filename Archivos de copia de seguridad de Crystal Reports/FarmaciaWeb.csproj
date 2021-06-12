@@ -49,14 +49,74 @@
     <Reference Include="CryptSharp, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CryptSharpOfficial.2.1.0.0\lib\CryptSharp.dll</HintPath>
     </Reference>
-    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.Engine.13.0.4000\lib\net40\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.ClientDoc, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.ClientDoc.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.ClientDoc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.CommLayer, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.CommLayer.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.CommLayer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.CommonControls, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.CommonControls.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.CommonControls.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.CommonObjectModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.CommonObjectModel.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.CommonObjectModel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.Controllers, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.Controllers.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.Controllers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.CubeDefModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.CubeDefModel.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.CubeDefModel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.DataDefModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.DataDefModel.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.DataDefModel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.DataSetConversion, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.DataSetConversion.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.DataSetConversion.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.ObjectFactory, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.ObjectFactory.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.ObjectFactory.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.Prompting, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.Prompting.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.Prompting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.ReportDefModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.ReportDefModel.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.ReportDefModel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.XmlSerialize, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.XmlSerialize.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.XmlSerialize.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportSource">
+      <HintPath>..\..\..\..\..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.ReportSource.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.Shared.13.0.4000\lib\net40\CrystalDecisions.Shared.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
@@ -169,8 +229,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\EmpleadoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KitController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MedicamentoController.cs" />
     <Compile Include="Controllers\NotificacionesController.cs" />
     <Compile Include="Controllers\PromocionesController.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
@@ -187,7 +250,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Composites\KitMedicamentos.cs" />
+    <Compile Include="Composites\Medicamentos.cs" />
+    <Compile Include="Composites\MedicamentosComponent.cs" />
     <Compile Include="Models\cliente.cs">
+      <DependentUpon>FarmaciaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\detalles_kit.cs">
       <DependentUpon>FarmaciaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\detalles_notificaciones.cs">
@@ -223,6 +292,9 @@
     <Compile Include="Models\inventario.cs">
       <DependentUpon>FarmaciaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\kit.cs">
+      <DependentUpon>FarmaciaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\login.cs">
       <DependentUpon>FarmaciaModel.tt</DependentUpon>
     </Compile>
@@ -248,7 +320,7 @@
     <Compile Include="Models\registro.cs">
       <DependentUpon>FarmaciaModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ReportesConexion.cs" />
+    <Compile Include="Models\Registro_Empleado.cs" />
     <Compile Include="Models\sucursal.cs">
       <DependentUpon>FarmaciaModel.tt</DependentUpon>
     </Compile>
@@ -264,6 +336,7 @@
     <Compile Include="Models\vendedor.cs">
       <DependentUpon>FarmaciaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Utilidades\ReportesConexion.cs" />
     <Compile Include="Observer\IRegistros.cs" />
     <Compile Include="Observer\Observador.cs" />
     <Compile Include="Observer\Sujeto.cs" />
@@ -288,10 +361,9 @@
     </Compile>
     <Compile Include="Strategy\ObtenerDatos.cs" />
     <Compile Include="Strategy\ObtenerDatosCtx.cs" />
+    <Compile Include="Utilidades\CheckLogin.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Imgs\logo1.png" />
@@ -300,7 +372,6 @@
     <Content Include="Content\Imgs\security.svg" />
     <Content Include="Content\theme.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Models\FarmaciaModel.Context.tt">
@@ -313,8 +384,6 @@
       <DependentUpon>FarmaciaModel.edmx</DependentUpon>
       <LastGenOutput>FarmaciaModel.cs</LastGenOutput>
     </Content>
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\FarmaciaModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>FarmaciaModel.Designer.cs</LastGenOutput>
@@ -322,12 +391,47 @@
     <Content Include="Models\FarmaciaModel.edmx.diagram">
       <DependentUpon>FarmaciaModel.edmx</DependentUpon>
     </Content>
-    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\bootstrap.esm.js" />
+    <Content Include="Scripts\bootstrap.esm.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\Fonts\Montserrat-Black.ttf" />
+    <Content Include="Content\Fonts\Montserrat-BlackItalic.ttf" />
+    <Content Include="Content\Fonts\Montserrat-Bold.ttf" />
+    <Content Include="Content\Fonts\Montserrat-BoldItalic.ttf" />
+    <Content Include="Content\Fonts\Montserrat-ExtraBold.ttf" />
+    <Content Include="Content\Fonts\Montserrat-ExtraBoldItalic.ttf" />
+    <Content Include="Content\Fonts\Montserrat-ExtraLight.ttf" />
+    <Content Include="Content\Fonts\Montserrat-ExtraLightItalic.ttf" />
+    <Content Include="Content\Fonts\Montserrat-Italic.ttf" />
+    <Content Include="Content\Fonts\Montserrat-Light.ttf" />
+    <Content Include="Content\Fonts\Montserrat-LightItalic.ttf" />
+    <Content Include="Content\Fonts\Montserrat-Medium.ttf" />
+    <Content Include="Content\Fonts\Montserrat-MediumItalic.ttf" />
+    <Content Include="Content\Fonts\Montserrat-Regular.ttf" />
+    <Content Include="Content\Fonts\Montserrat-SemiBold.ttf" />
+    <Content Include="Content\Fonts\Montserrat-SemiBoldItalic.ttf" />
+    <Content Include="Content\Fonts\Montserrat-Thin.ttf" />
+    <Content Include="Content\Fonts\Montserrat-ThinItalic.ttf" />
+    <None Include="Scripts\jquery-3.6.0.intellisense.js" />
+    <Content Include="Scripts\jquery-3.6.0.js" />
+    <Content Include="Scripts\jquery-3.6.0.min.js" />
+    <Content Include="Scripts\jquery-3.6.0.slim.js" />
+    <Content Include="Scripts\jquery-3.6.0.slim.min.js" />
+    <Content Include="Views\Kit\Kit.cshtml" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.esm.min.js.map" />
+    <Content Include="Scripts\bootstrap.esm.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
     <Content Include="Scripts\fontawesome-pro.js" />
-    <Content Include="Scripts\jquery-3.4.1.js" />
-    <Content Include="Scripts\jquery-3.4.1.min.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.6.0.slim.min.map" />
+    <Content Include="Scripts\jquery-3.6.0.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -357,23 +461,18 @@
     <Content Include="Views\Dashboard\Promociones.cshtml" />
     <Content Include="Views\Shared\_Dashboard.cshtml" />
     <Content Include="Views\Notificaciones\Notificaciones.cshtml" />
-    <Content Include="Views\Reporte\Index.cshtml" />
+    <Content Include="Views\Dashboard\Reporte.cshtml" />
+    <Content Include="Views\Kit\DatosKit.cshtml" />
+    <Content Include="Views\Dashboard\Kit.cshtml" />
+    <Content Include="Views\Dashboard\Medicamentos.cshtml" />
+    <Content Include="Views\Dashboard\Empleado.cshtml" />
+    <Content Include="Views\Empleado\NuevoEmpleado.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
