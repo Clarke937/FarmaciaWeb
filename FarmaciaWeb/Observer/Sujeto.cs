@@ -30,7 +30,6 @@ namespace FarmaciaWeb.Observer
             List<cliente> cliente = dbc.cliente.Where(x => x.estado_notificaciones == true).ToList();
             foreach (cliente cl in cliente)
             {
-
                 new Observador().Update(cl.id_cliente, idNotify);
             }
         }

@@ -24,6 +24,7 @@ namespace FarmaciaWeb.Controllers
                 this.Session["notificaciones"] = det_notify;
             }
             else if (Session["currentUser"] != null) return RedirectToAction("Index", "Dashboard");
+
             return View();
         }
     }
